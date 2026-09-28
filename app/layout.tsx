@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     title: 'Anthony Fernandes, an open book',
     description:
       'The portfolio of Anthony Fernandes, product designer with a knack for management, told as a short book.',
-    images: ['/images/og-image.jpg'],
+    images: [`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/images/og-image.jpg`],
   },
 }
 

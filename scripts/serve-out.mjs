@@ -5,6 +5,8 @@ import { extname, join, normalize } from 'node:path'
 
 const root = join(process.cwd(), 'out')
 const port = Number(process.env.PORT ?? 3001)
+// Mirror a subfolder deploy (e.g. GitHub Pages) when the build used a base path.
+const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
 const types = {
   '.html': 'text/html; charset=utf-8',
   '.js': 'text/javascript',
@@ -19,7 +21,9 @@ const types = {
 }
 
 createServer(async (req, res) => {
-  let path = normalize(decodeURIComponent(new URL(req.url, 'http://x').pathname)).replace(/^(\.\.[/\\])+/, '')
+  let pathname = decodeURIComponent(new URL(req.url, 'http://x').pathname)
+  if (base && pathname.startsWith(base)) pathname = pathname.slice(base.length) || '/'
+  let path = normalize(pathname).replace(/^(\.\.[/\\])+/, '')
   let file = join(root, path)
   try {
     if ((await stat(file)).isDirectory()) file = join(file, 'index.html')
@@ -35,4 +39,4 @@ createServer(async (req, res) => {
     res.statusCode = 404
     res.end('Not found')
   }
-}).listen(port, () => console.log(`Serving out/ on http://localhost:${port}`))
+}).listen(port, () => console.log(`Serving out/ on http://localhost:${port}${base}/`))
