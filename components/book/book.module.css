@@ -1,0 +1,444 @@
+/* ---------- Placement: the spine sits on the viewport's vertical centre line ---------- */
+.bookPos {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: var(--page-h);
+  transform: translateY(-50%);
+}
+
+.intro {
+  position: absolute;
+  inset: 0;
+  animation: bookIn 900ms cubic-bezier(0.16, 1, 0.3, 1) 400ms both;
+}
+.noIntro .intro {
+  animation: none;
+}
+@keyframes bookIn {
+  from {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+  to {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+.tilt {
+  position: absolute;
+  inset: 0;
+  transform-origin: calc(var(--page-w) * 0.5) 50%;
+  transform: rotate(-2deg);
+}
+
+/* ---------- Desk shadows (pre-rendered; only opacity changes) ---------- */
+.shadow {
+  position: absolute;
+  top: 0;
+  width: var(--page-w);
+  height: 100%;
+  border-radius: 3px;
+  pointer-events: none;
+  box-shadow:
+    0 calc(var(--page-h) * 0.05) calc(var(--page-h) * 0.09) calc(var(--page-h) * -0.01) rgba(0, 0, 0, 0.5),
+    0 calc(var(--page-h) * 0.012) calc(var(--page-h) * 0.02) rgba(0, 0, 0, 0.32),
+    0 2px 2px rgba(0, 0, 0, 0.35);
+}
+.shadowRight {
+  left: 0;
+}
+.shadowLeft {
+  left: calc(var(--page-w) * -1);
+  opacity: 0;
+}
+.shadowBlur {
+  position: absolute;
+  left: calc(var(--page-w) * -0.05);
+  top: 4%;
+  width: calc(var(--page-w) * 1.1);
+  height: 100%;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.55);
+  filter: blur(40px);
+  opacity: 0;
+  animation: shadowResolve 900ms cubic-bezier(0.16, 1, 0.3, 1) 400ms both;
+  pointer-events: none;
+}
+.noIntro .shadowBlur {
+  display: none;
+}
+@keyframes shadowResolve {
+  0% {
+    opacity: 0.9;
+    transform: translateY(40px) scale(1.08);
+  }
+  100% {
+    opacity: 0;
+    transform: none;
+  }
+}
+
+/* ---------- Leaves ---------- */
+.leaves {
+  position: absolute;
+  inset: 0;
+  perspective: 2400px;
+  perspective-origin: 0 50%;
+  z-index: 1;
+}
+
+.leaf {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--page-w);
+  height: var(--page-h);
+  transform-origin: 0 50%;
+  transform-style: preserve-3d;
+}
+
+.face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  container-type: size;
+  overflow: hidden;
+  background-color: var(--paper);
+  border-radius: 0 1px 1px 0;
+  transform: translateZ(0);
+}
+.back {
+  transform: rotateY(180deg);
+  border-radius: 1px 0 0 1px;
+}
+
+/* Corner curl cut (the curl layer sets --curl on the active face) */
+.face[data-curl='tr'] {
+  clip-path: polygon(0 0, calc(100% - var(--curl)) 0, 100% var(--curl), 100% 100%, 0 100%);
+}
+.face[data-curl='tl'] {
+  clip-path: polygon(var(--curl) 0, 100% 0, 100% 100%, 0 100%, 0 var(--curl));
+}
+
+.board {
+  background-color: var(--board);
+  background-image: var(--linen);
+  background-size: 300px 300px;
+  border-radius: 0 3px 3px 0;
+}
+.back.board {
+  border-radius: 3px 0 0 3px;
+}
+/* board thickness: a 3–4px edge on the outer and lower sides */
+.board::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.16));
+  box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.08);
+  z-index: 9;
+  pointer-events: none;
+}
+.front.board::before {
+  right: 0;
+}
+.back.board::before {
+  left: 0;
+  transform: scaleX(-1);
+}
+.board::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 3px;
+  background: rgba(0, 0, 0, 0.1);
+  z-index: 9;
+  pointer-events: none;
+}
+
+.endpaper {
+  background-color: var(--paper-cool);
+  background-image:
+    linear-gradient(rgba(34, 33, 30, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(34, 33, 30, 0.05) 1px, transparent 1px);
+  background-size: 3.2cqw 3.2cqw;
+  background-position: -1px -1px;
+}
+
+/* ---------- Face layers ---------- */
+.content {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+.grain,
+.fibres {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+}
+.grain {
+  background-image: var(--grain);
+  background-size: 240px 240px;
+  opacity: 0.09;
+}
+.fibres {
+  background-image: var(--fibres);
+  background-size: 420px 420px;
+  opacity: 0.05;
+}
+
+.gutter {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 8%;
+  z-index: 4;
+  pointer-events: none;
+}
+.front .gutter {
+  left: 0;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.09), rgba(0, 0, 0, 0.025) 40%, transparent);
+}
+.back .gutter {
+  right: 0;
+  background: linear-gradient(270deg, rgba(0, 0, 0, 0.09), rgba(0, 0, 0, 0.025) 40%, transparent);
+}
+.board .gutter {
+  opacity: 0.5;
+}
+
+.holes {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1.1cqw;
+  z-index: 6;
+  pointer-events: none;
+}
+.front .holes {
+  left: calc(2.2cqw - 0.55cqw);
+}
+.back .holes {
+  right: calc(2.2cqw - 0.55cqw);
+}
+.hole {
+  position: absolute;
+  left: 0;
+  width: 1.1cqw;
+  height: 1.1cqw;
+  margin-top: -0.55cqw;
+  border-radius: 50%;
+  background: #262522;
+  box-shadow:
+    inset 0 0.18cqw 0.25cqw rgba(0, 0, 0, 0.7),
+    0 0.08cqw 0 rgba(255, 255, 255, 0.55);
+}
+
+.shade,
+.cast {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 7;
+}
+/* On the turning page: darkening toward the spine */
+.front .shade {
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.06) 45%, rgba(0, 0, 0, 0) 80%, rgba(255, 255, 255, 0.06));
+}
+.back .shade {
+  background: linear-gradient(270deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.06) 45%, rgba(0, 0, 0, 0) 80%, rgba(255, 255, 255, 0.06));
+}
+/* On the page being revealed / covered: a soft cast shadow from the spine */
+.front .cast {
+  z-index: 8;
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.34), rgba(0, 0, 0, 0.12) 30%, rgba(0, 0, 0, 0) 70%);
+}
+.back .cast {
+  z-index: 8;
+  background: linear-gradient(270deg, rgba(255, 255, 255, 0.05), rgba(0, 0, 0, 0.16) 25%, rgba(0, 0, 0, 0.32) 70%, rgba(0, 0, 0, 0.1));
+}
+
+/* Thin-paper show-through: the reverse side, mirrored, barely there */
+.showThrough {
+  position: absolute;
+  inset: 0;
+  transform: scaleX(-1);
+  opacity: 0.018;
+  filter: blur(0.7px);
+  pointer-events: none;
+  z-index: 1;
+}
+.fast .showThrough,
+.lowPower .showThrough {
+  display: none;
+}
+
+/* ---------- Page stacks ---------- */
+.stack {
+  position: absolute;
+  top: 3px;
+  bottom: 2px;
+  width: 10px;
+  z-index: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(90deg, #e2e0d9 0 1px, #a6a399 1px 2px);
+  transform: scaleX(0);
+}
+.stackRight {
+  left: var(--page-w);
+  transform-origin: 0 50%;
+  border-radius: 0 2px 2px 0;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+.stackLeft {
+  right: var(--page-w);
+  transform-origin: 100% 50%;
+  border-radius: 2px 0 0 2px;
+  box-shadow: -1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* ---------- Wire-O binding ---------- */
+.binding {
+  position: absolute;
+  top: 0;
+  left: calc(var(--page-w) * -0.045);
+  width: calc(var(--page-w) * 0.09);
+  height: 100%;
+  z-index: 3;
+  pointer-events: none;
+  overflow: visible;
+}
+
+/* ---------- Index tab ---------- */
+.tab {
+  position: absolute;
+  left: calc(var(--page-w) * 0.7);
+  top: calc(var(--page-w) * -0.042);
+  width: calc(var(--page-w) * 0.15);
+  height: calc(var(--page-w) * 0.042);
+  transform-style: preserve-3d;
+}
+.tabFace {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  background: var(--ink-blue);
+  color: rgba(237, 236, 231, 0.9);
+  font-family: var(--typed);
+  font-size: calc(var(--page-w) * 0.019);
+  letter-spacing: 0.02em;
+  border-radius: 3px 3px 0 0;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  background-image: var(--grain);
+  background-size: 240px;
+  background-blend-mode: multiply;
+}
+.tabBack {
+  transform: rotateY(180deg);
+}
+
+/* ---------- Corner curl ---------- */
+.curlLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  --hot: max(88px, calc(var(--page-w) * 0.14));
+}
+.hotspot {
+  position: absolute;
+  top: 0;
+  width: var(--hot);
+  height: var(--hot);
+  pointer-events: auto;
+  cursor: pointer;
+  border-radius: 2px;
+}
+.hotNext {
+  left: calc(var(--page-w) - var(--hot));
+}
+.hotPrev {
+  left: calc(var(--page-w) * -1);
+}
+.hotSpine {
+  left: calc(var(--hot) * -1);
+}
+
+.flapWrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  filter: drop-shadow(-1px 2px 2px rgba(0, 0, 0, 0.22)) drop-shadow(-3px 5px 6px rgba(0, 0, 0, 0.12));
+}
+.flapWrap[data-corner='tl'] {
+  filter: drop-shadow(1px 2px 2px rgba(0, 0, 0, 0.22)) drop-shadow(3px 5px 6px rgba(0, 0, 0, 0.12));
+}
+.flap {
+  position: absolute;
+  inset: 0;
+}
+.flapWrap[data-corner='tr'] .flap {
+  clip-path: polygon(0 0, 100% 100%, 0 100%);
+  background: linear-gradient(to bottom left, #f6f5f1 48%, #f4f3ee 50%, #dcdbd4 78%, #c9c7bf 100%);
+}
+.flapWrap[data-corner='tl'] .flap {
+  clip-path: polygon(100% 0, 0 100%, 100% 100%);
+  background: linear-gradient(to bottom right, #f6f5f1 48%, #f4f3ee 50%, #dcdbd4 78%, #c9c7bf 100%);
+}
+.flapWrap[data-material='board'] .flap {
+  background: linear-gradient(to bottom left, #e6e4dd 48%, #e2e0d8 50%, #c9c6bd 80%, #b8b5ab 100%);
+}
+.flapWrap[data-material='board'][data-corner='tl'] .flap {
+  background: linear-gradient(to bottom right, #e6e4dd 48%, #e2e0d8 50%, #c9c6bd 80%, #b8b5ab 100%);
+}
+
+/* ---------- Reduced motion: crossfade ---------- */
+.reduced .leaf {
+  transition: none;
+}
+
+/* ---------- Single-page (mobile) ---------- */
+.singlePos {
+  position: absolute;
+  top: 50%;
+  left: calc((100vw - var(--page-w)) / 2);
+  width: 0;
+  height: var(--page-h);
+  transform: translateY(-50%);
+}
+.single .tilt {
+  transform-origin: calc(var(--page-w) * 0.5) 50%;
+}
+.sheetBack {
+  background: var(--paper-back);
+}
+.tapZone {
+  position: absolute;
+  top: 0;
+  width: 28%;
+  height: 22%;
+  pointer-events: auto;
+}
+.tapNext {
+  left: calc(var(--page-w) * 0.72);
+}
+.tapPrev {
+  left: 0;
+}

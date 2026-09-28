@@ -1,0 +1,481 @@
+/*
+ * Page primitives. Everything is sized in container units of the page face:
+ * design on a 600×800 artboard, where 1cqw = 6 design px.
+ */
+
+.page {
+  position: absolute;
+  inset: 0;
+  color: var(--ink);
+  font-family: var(--serif);
+  font-optical-sizing: auto;
+  font-variant-numeric: oldstyle-nums;
+  font-size: 2.75cqw;
+  line-height: 1.55;
+}
+
+/* Content box: top 72, bottom 80, outer 56, spine 72 */
+.area {
+  position: absolute;
+  top: 12cqw;
+  bottom: 13.4cqw;
+  display: flex;
+  flex-direction: column;
+}
+.page[data-side='right'] .area {
+  left: 12cqw;
+  right: 9.4cqw;
+}
+.page[data-side='left'] .area {
+  left: 9.4cqw;
+  right: 12cqw;
+}
+:global(.single) .page[data-side='left'] .area {
+  left: 12cqw;
+  right: 9.4cqw;
+}
+
+.runningHead {
+  position: absolute;
+  top: 5.2cqw;
+  font-family: var(--typed);
+  font-size: 1.6cqw;
+  color: var(--ink-faint);
+  letter-spacing: 0.01em;
+  line-height: 1;
+}
+.page[data-side='right'] .runningHead {
+  right: 9.4cqw;
+}
+.page[data-side='left'] .runningHead {
+  left: 9.4cqw;
+}
+:global(.single) .page[data-side='left'] .runningHead {
+  left: auto;
+  right: 9.4cqw;
+}
+
+/* ---------- Footer: page number in the outer corner + the ever-present email ---------- */
+.footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 5.2cqw;
+  font-family: var(--typed);
+  line-height: 1;
+}
+.pageNo {
+  position: absolute;
+  bottom: 0;
+  font-size: 1.7cqw;
+  color: var(--ink-soft);
+  font-variant-numeric: lining-nums;
+}
+.page[data-side='right'] .pageNo {
+  right: 9.4cqw;
+}
+.page[data-side='left'] .pageNo {
+  left: 9.4cqw;
+}
+:global(.single) .page[data-side='left'] .pageNo {
+  left: auto;
+  right: 9.4cqw;
+}
+.footEmail {
+  position: absolute;
+  bottom: 0.1cqw;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 1.45cqw;
+  color: var(--ink-faint);
+  opacity: 0.7;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.footEmail:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+/* ---------- Type ---------- */
+.typed {
+  font-family: var(--typed);
+  font-size: 1.75cqw;
+  line-height: 1.45;
+  color: var(--ink-soft);
+  font-variant-numeric: lining-nums;
+}
+
+.chapterLabel {
+  composes: typed;
+  display: block;
+  margin-bottom: 1.6cqw;
+}
+
+.chapterTitle {
+  font-weight: 300;
+  font-style: italic;
+  font-size: 8.4cqw;
+  line-height: 1.02;
+  letter-spacing: -0.01em;
+  font-variation-settings: 'opsz' 72;
+  text-wrap: balance;
+}
+
+.opener {
+  margin-bottom: 5cqw;
+}
+
+.body {
+  max-width: 62ch;
+  text-wrap: pretty;
+  hanging-punctuation: first;
+}
+.body p + p {
+  margin-top: 0.9em;
+}
+.body.indent p + p {
+  margin-top: 0;
+  text-indent: 1.5em;
+}
+.small {
+  font-size: 2.45cqw;
+  line-height: 1.5;
+}
+
+.lesson {
+  font-weight: 400;
+  font-style: italic;
+  font-size: 4.4cqw;
+  line-height: 1.16;
+  letter-spacing: -0.005em;
+  text-wrap: balance;
+}
+
+.projectTitle {
+  font-weight: 500;
+  font-size: 4cqw;
+  line-height: 1.15;
+  letter-spacing: -0.005em;
+  text-wrap: balance;
+}
+.tags {
+  composes: typed;
+  display: block;
+  margin-top: 1.2cqw;
+  font-size: 1.6cqw;
+}
+
+.note {
+  font-family: var(--hand);
+  font-size: 2.6cqw;
+  line-height: 1.35;
+  color: var(--graphite);
+  opacity: 0.85;
+  display: inline-block;
+  transform-origin: left center;
+}
+
+/* ---------- Links (ink-blue, hand-drawn underline) ---------- */
+.link {
+  position: relative;
+  display: inline-block;
+  color: var(--ink);
+  text-decoration: none;
+  padding-bottom: 0.18em;
+}
+.squiggle {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.12em;
+  width: 100%;
+  height: 0.36em;
+  overflow: visible;
+  pointer-events: none;
+}
+.squiggle path {
+  stroke: var(--ink-blue);
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+.link:hover .squiggle path,
+.link:focus-visible .squiggle path {
+  animation: draw 280ms ease-out both;
+}
+@keyframes draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.caseLink {
+  font-size: 2.6cqw;
+}
+
+/* ---------- Cross-references ---------- */
+.crossRef {
+  font-family: var(--hand);
+  font-size: 2.3cqw;
+  color: var(--graphite);
+  opacity: 0.85;
+  cursor: pointer;
+  line-height: 1.2;
+  display: inline-flex;
+  gap: 0.35em;
+  transform: rotate(-2deg);
+}
+.crossNum {
+  position: relative;
+}
+.crossCircle {
+  position: absolute;
+  left: -0.55em;
+  top: -0.35em;
+  width: calc(100% + 1.1em);
+  height: calc(100% + 0.7em);
+  overflow: visible;
+  pointer-events: none;
+}
+.crossCircle path {
+  stroke: var(--graphite);
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  opacity: 0;
+  transition:
+    stroke-dashoffset 250ms ease-out,
+    opacity 0s 250ms;
+}
+.crossRef:hover .crossCircle path,
+.crossRef:focus-visible .crossCircle path {
+  stroke-dashoffset: 0;
+  opacity: 1;
+  transition:
+    stroke-dashoffset 250ms ease-out,
+    opacity 0s;
+}
+
+/* ---------- Figures: printed matter attached to the paper ---------- */
+.figure {
+  position: relative;
+  display: block;
+}
+.print {
+  position: relative;
+  box-shadow:
+    0 0.18cqw 0.2cqw -0.05cqw rgba(0, 0, 0, 0.28),
+    0 0 0 0.5px rgba(0, 0, 0, 0.06);
+  background: #d9d8d2;
+  overflow: hidden;
+}
+.print img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.88) contrast(1.03);
+  mix-blend-mode: multiply;
+  opacity: 0.97;
+}
+.screen img {
+  filter: saturate(0.95) contrast(1.02);
+}
+.bw img {
+  filter: grayscale(1) contrast(1.05);
+}
+.print::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--grain);
+  background-size: 240px;
+  opacity: 0.07;
+  pointer-events: none;
+}
+.caption {
+  composes: typed;
+  font-size: 1.55cqw;
+  line-height: 1.45;
+  margin-top: 1.6cqw;
+  max-width: 44ch;
+}
+.captionSide {
+  position: absolute;
+  left: calc(100% + 1.4cqw);
+  bottom: 0;
+  margin: 0;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  white-space: nowrap;
+  max-width: none;
+}
+
+.attach {
+  position: absolute;
+  pointer-events: none;
+  z-index: 3;
+}
+.paperclip {
+  composes: attach;
+  top: -3.6cqw;
+  width: 3.1cqw;
+  height: 9.4cqw;
+  filter: drop-shadow(0.15cqw 0.25cqw 0.2cqw rgba(0, 0, 0, 0.28));
+}
+.binder {
+  composes: attach;
+  top: -3.3cqw;
+  width: 9cqw;
+  height: 7.4cqw;
+  filter: drop-shadow(0.2cqw 0.4cqw 0.35cqw rgba(0, 0, 0, 0.35));
+}
+.tape {
+  composes: attach;
+  width: 12cqw;
+  height: 3.6cqw;
+  filter: drop-shadow(0 0.1cqw 0.12cqw rgba(0, 0, 0, 0.1));
+}
+
+/* ---------- Stamp (bookplate) ---------- */
+.stamp {
+  position: relative;
+  color: var(--ink-blue);
+  text-align: center;
+  padding: 5.4cqw 6cqw 5cqw;
+  transform: rotate(-2deg);
+}
+.stampFrame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.stampInk {
+  position: relative;
+  opacity: 0.82;
+  mix-blend-mode: multiply;
+}
+.stampGhost {
+  position: absolute;
+  inset: 0;
+  transform: translate(1px, 0.6px);
+  opacity: 0.28;
+  pointer-events: none;
+}
+
+/* ---------- Torn label ---------- */
+.torn {
+  display: inline-block;
+  font-family: var(--typed);
+  font-size: 1.9cqw;
+  color: var(--ink);
+  background: #f5f4f0;
+  padding: 1.1cqw 2.2cqw 1cqw;
+  box-shadow: 0 0.15cqw 0.25cqw rgba(0, 0, 0, 0.18);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* ---------- Index card ---------- */
+.card {
+  position: relative;
+  background-color: #f6f5f1;
+  background-image: repeating-linear-gradient(to bottom, transparent 0, transparent calc(3.6cqw - 1px), rgba(47, 62, 99, 0.12) calc(3.6cqw - 1px), rgba(47, 62, 99, 0.12) 3.6cqw);
+  background-position: 0 4.4cqw;
+  padding: 4.6cqw 4cqw 3.4cqw;
+  box-shadow:
+    0 0.3cqw 0.6cqw rgba(0, 0, 0, 0.16),
+    0 0 0 0.5px rgba(0, 0, 0, 0.05);
+  font-family: var(--typed);
+  font-size: 1.9cqw;
+  line-height: 3.6cqw;
+  color: var(--ink);
+}
+
+/* ---------- Tucked-in letter ---------- */
+.letter {
+  position: absolute;
+  inset: 7.5cqw 6.4cqw 9cqw 7.6cqw;
+  background: var(--paper-warm);
+  transform: rotate(0.6deg);
+  box-shadow:
+    0 0.35cqw 0.5cqw -0.15cqw rgba(0, 0, 0, 0.22),
+    0 1.8cqw 2.4cqw -1.6cqw rgba(0, 0, 0, 0.3),
+    0 0 0 0.5px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+.letter::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--grain);
+  background-size: 240px;
+  opacity: 0.07;
+  pointer-events: none;
+}
+.foldH,
+.foldV {
+  position: absolute;
+  pointer-events: none;
+}
+.foldH {
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 30px;
+  margin-top: -15px;
+  background:
+    linear-gradient(rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.06)) center / 100% 1px no-repeat,
+    linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)) 0 calc(50% + 1px) / 100% 1px no-repeat,
+    linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.022) 48%, rgba(255, 255, 255, 0.1) 52%, rgba(255, 255, 255, 0));
+}
+.foldV {
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 30px;
+  margin-left: -15px;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.06)) center / 1px 100% no-repeat,
+    linear-gradient(90deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)) calc(50% + 1px) 0 / 1px 100% no-repeat,
+    linear-gradient(90deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.02) 48%, rgba(255, 255, 255, 0.1) 52%, rgba(255, 255, 255, 0));
+}
+.letterInner {
+  position: absolute;
+  inset: 6.6cqw 6cqw 5cqw 6.4cqw;
+  font-size: 2.55cqw;
+  line-height: 1.5;
+}
+
+/* ---------- Hand-drawn strokes that draw themselves ---------- */
+.drawn path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  opacity: 0;
+}
+.drawn.play path {
+  opacity: 1;
+  animation: drawIn var(--draw-dur, 1.2s) ease-in-out var(--draw-delay, 0s) both;
+}
+.drawn.static path {
+  opacity: 1;
+  stroke-dashoffset: 0;
+}
+@keyframes drawIn {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .drawn path {
+    stroke-dashoffset: 0 !important;
+    opacity: 1 !important;
+    animation: none !important;
+  }
+}

@@ -1,0 +1,264 @@
+.main {
+  position: relative;
+  width: 100%;
+}
+
+.stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* ---------- Desk ---------- */
+.desk {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 62% at 50% 48%, var(--desk-light) 0%, #34332f 45%, var(--desk) 78%),
+    var(--desk);
+}
+.desk::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: var(--grain);
+  background-size: 240px;
+  opacity: 0.12;
+  pointer-events: none;
+}
+.vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 90% 80% at 50% 50%, transparent 55%, rgba(0, 0, 0, 0.28) 100%);
+  pointer-events: none;
+}
+.blackout {
+  position: absolute;
+  inset: 0;
+  background: #000;
+  animation: fadeOut 400ms ease-out both;
+  pointer-events: none;
+  z-index: 50;
+}
+.noIntro .blackout {
+  display: none;
+}
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* ---------- Hero (left half) ---------- */
+.hero {
+  position: absolute;
+  top: 50%;
+  left: 8vw;
+  width: calc(50vw - 8vw - 4vw);
+  transform: translateY(-50%);
+  color: #ecebe6;
+  z-index: 5;
+  pointer-events: none;
+}
+.heroLine {
+  font-weight: 300;
+  font-size: clamp(34px, 5.2vw, 96px);
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+  font-variation-settings: 'opsz' 72;
+  white-space: nowrap;
+}
+.heroSub {
+  margin-top: 1.4vw;
+  font-size: clamp(15px, 1.4vw, 24px);
+  line-height: 1.4;
+  color: rgba(236, 235, 230, 0.72);
+}
+.heroNote {
+  position: relative;
+  margin-top: 3.4vw;
+  display: inline-block;
+  font-family: var(--hand);
+  font-size: clamp(15px, 1.35vw, 24px);
+  color: rgba(236, 235, 230, 0.62);
+  transform: rotate(-3deg);
+  transform-origin: left center;
+  white-space: nowrap;
+}
+.heroArrow {
+  position: absolute;
+  left: calc(100% + 0.6vw);
+  top: -2.4vw;
+  width: 12vw;
+  height: 5vw;
+  color: rgba(236, 235, 230, 0.55);
+  overflow: visible;
+}
+.heroArrow path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw 700ms ease-in-out 1.75s forwards;
+}
+.heroArrow path + path {
+  animation-delay: 2.35s;
+  animation-duration: 250ms;
+}
+.rise {
+  opacity: 0;
+  animation: rise 800ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.noIntro .rise {
+  animation: none;
+  opacity: 1;
+}
+.noIntro .heroArrow path {
+  animation: none;
+  stroke-dashoffset: 0;
+}
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ---------- Closing (right half) ---------- */
+.closing {
+  position: absolute;
+  top: 50%;
+  left: calc(50vw + 6vw);
+  width: calc(50vw - 6vw - 5vw);
+  transform: translateY(-50%);
+  color: #ecebe6;
+  z-index: 5;
+  pointer-events: none;
+}
+.closing.live {
+  pointer-events: auto;
+}
+.closeLine {
+  font-weight: 300;
+  font-size: clamp(30px, 4.4vw, 82px);
+  line-height: 1.04;
+  letter-spacing: -0.015em;
+  font-variation-settings: 'opsz' 72;
+}
+.closeSub {
+  margin-top: 1.4vw;
+  font-size: clamp(15px, 1.4vw, 24px);
+  line-height: 1.4;
+  color: rgba(236, 235, 230, 0.72);
+}
+.closeMail {
+  margin-top: 2.6vw;
+  font-size: clamp(15px, 1.3vw, 22px);
+}
+.closeMail a {
+  color: #ecebe6;
+}
+.closeMail svg path {
+  stroke: #8fa0c8 !important;
+}
+.closing > * {
+  opacity: 0;
+}
+
+/* ---------- Skip link ---------- */
+.skip {
+  position: fixed;
+  left: 16px;
+  top: 16px;
+  z-index: 100;
+  transform: translateY(-200%);
+  font-family: var(--typed);
+  font-size: 13px;
+  background: var(--paper);
+  color: var(--ink);
+  padding: 8px 12px 7px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+  text-decoration: none;
+}
+.skip:focus {
+  transform: rotate(-1.5deg);
+}
+
+/* ---------- Tablet: the hero sits above the closed book if space is tight ---------- */
+@media (min-width: 768px) and (max-width: 1099px) {
+  .hero {
+    left: 5vw;
+    width: calc(50vw - 8vw);
+  }
+  .heroLine {
+    font-size: 5vw;
+  }
+  .heroArrow {
+    width: 9vw;
+  }
+  .closing {
+    left: calc(50vw + 4vw);
+    width: calc(50vw - 8vw);
+  }
+}
+
+/* ---------- Phone: single-page mode ---------- */
+@media (max-width: 767px) {
+  .hero {
+    top: max(4vh, 20px);
+    left: 16px;
+    right: 16px;
+    width: auto;
+    transform: none;
+    text-align: center;
+  }
+  .heroLine {
+    font-size: clamp(30px, 9vw, 44px);
+    white-space: normal;
+  }
+  .heroSub {
+    margin-top: 8px;
+    font-size: 15px;
+  }
+  .heroNote {
+    margin-top: 12px;
+    font-size: 16px;
+    transform: rotate(-2deg);
+  }
+  .heroArrow {
+    display: none;
+  }
+  .closing {
+    top: auto;
+    bottom: max(4vh, 20px);
+    left: 16px;
+    right: 16px;
+    width: auto;
+    transform: none;
+    text-align: center;
+  }
+  .closeLine {
+    font-size: clamp(28px, 8vw, 40px);
+  }
+  .closeSub {
+    margin-top: 8px;
+    font-size: 15px;
+  }
+  .closeMail {
+    margin-top: 10px;
+    font-size: 15px;
+  }
+}
