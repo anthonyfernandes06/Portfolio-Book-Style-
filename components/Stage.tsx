@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { initEngine, scrollLengthVh, scrollToPage, useBookState, type Mode } from '@/lib/progress'
+import { initSound } from '@/lib/sound'
 import Book from './book/Book'
 import MobileBook from './book/MobileBook'
 import Desk from './Desk'
@@ -21,6 +22,7 @@ export default function Stage() {
   }, [])
 
   useEffect(() => initEngine(mode), [mode])
+  useEffect(() => initSound(), [])
 
   return (
     <>

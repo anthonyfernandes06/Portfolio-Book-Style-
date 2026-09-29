@@ -1,5 +1,6 @@
 import { MarginNote, Stamp } from '@/components/page/Primitives'
 import { EMAIL, MAILTO } from '@/content/links'
+import SoundToggle from '@/components/page/SoundToggle'
 import s from './pages.module.css'
 
 export default function InsideFront() {
@@ -17,6 +18,7 @@ export default function InsideFront() {
       <MarginNote rotate={-3} style={{ marginTop: 'auto', maxWidth: '36ch', textAlign: 'left', fontSize: '2.8cqw' }}>
         Scroll to turn the pages, or lift a corner if you prefer. The contents are on the right, for those who like to skip ahead.
       </MarginNote>
+      <SoundToggle />
     </article>
   )
 }

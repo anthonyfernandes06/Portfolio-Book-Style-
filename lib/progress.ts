@@ -10,6 +10,7 @@ import Lenis from 'lenis'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { clamp, easeInOutCubic, power2InOut, power3InOut } from './easing'
+import { playPageTurn, playRiffle } from './sound'
 
 export type Mode = 'spread' | 'single'
 
@@ -90,10 +91,37 @@ class BookStore {
   }
 
   setProgress(p: number) {
+    const prev = this.progress
     this.progress = p
+    this.turnSound(prev, p)
     this.progressFns.forEach((fn) => fn(p))
     const spread = Math.round(p)
     if (spread !== this.state.spread) this.patch({ spread })
+  }
+
+  /** True while a click/key turn is in flight; it already played its own sound. */
+  soundLock = false
+
+  kindOf(k: number): 'board' | 'paper' {
+    return k === 0 || k === this.cfg.steps - 1 ? 'board' : 'paper'
+  }
+
+  /**
+   * Scroll-driven turns sound once the page has lifted far enough to commit
+   * (the same 15% point the snap uses), so a nudge that falls back is silent.
+   * Jumps (deep links, resizes) and riffles are skipped; riffles have their own sound.
+   */
+  private turnSound(prev: number, p: number) {
+    if (this.state.riffling || this.soundLock || Math.abs(p - prev) > 1) return
+    const T = 0.15
+    const last = this.cfg.steps - 1
+    if (p > prev) {
+      const k = Math.floor(p - T)
+      if (k >= 0 && prev < k + T && p >= k + T) playPageTurn(this.kindOf(k), 0.6, 1)
+    } else if (p < prev) {
+      const k = Math.floor(prev - (1 - T))
+      if (k >= 0 && k <= last && prev > k + 1 - T && p <= k + 1 - T) playPageTurn(this.kindOf(k), 0.6, -1)
+    }
   }
 
   patch(next: Partial<BookState>) {
@@ -183,6 +211,14 @@ function go(n: number, opts: GoOptions = {}) {
 
   clearTimeout(snapTimer)
   store.patch({ viaKeyboard: !!opts.keyboard, riffling: riffle })
+  const moving = Math.abs(lenis.scroll - y) >= 1
+  if (riffle && moving) playRiffle(pages, duration, n > from ? 1 : -1)
+  // Click and keyboard turns sound straight away; snaps finish a scroll turn that already sounded.
+  store.soundLock = !riffle && moving && opts.duration === undefined
+  if (store.soundLock) {
+    const dir = n > store.progress ? 1 : -1
+    playPageTurn(store.kindOf(dir > 0 ? Math.floor(store.progress) : Math.ceil(store.progress) - 1), duration, dir)
+  }
 
   if (Math.abs(lenis.scroll - y) < 1) {
     programmatic = false
@@ -197,6 +233,7 @@ function go(n: number, opts: GoOptions = {}) {
     clearTimeout(safetyTimer)
     if (!programmatic || target !== n) return
     programmatic = false
+    store.soundLock = false
     store.patch({ riffling: false })
     settle(n)
   }

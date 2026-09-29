@@ -112,6 +112,20 @@
   font-size: 2.7cqw;
 }
 
+/* sound toggle, typed small at the foot of the inside cover */
+.soundToggle {
+  margin-top: 4cqw;
+  align-self: flex-start;
+  font-family: var(--typed);
+  font-size: 1.6cqw;
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+.soundState {
+  color: var(--ink);
+  border-bottom: 1px solid rgba(47, 62, 99, 0.5);
+}
+
 /* ---------- Contents ---------- */
 .contentsTitle {
   font-weight: 300;
