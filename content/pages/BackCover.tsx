@@ -9,7 +9,7 @@ export default function BackCover() {
   return (
     <article className={`${s.cover} ${s.back}`} aria-label="Back cover">
       <p className={s.blurb}>
-        A short, honest account of a self-taught designer who went from junior UX designer to head of design in five years, and learned along the way that the best products are built by well-led teams.
+        A short, honest account of a designer looking for the next chapter of his story.
       </p>
       {/* [One real testimonial from a colleague or client, with name and role. Omitted until supplied.] */}
       <div className={s.getInTouch}>

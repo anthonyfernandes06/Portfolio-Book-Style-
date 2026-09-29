@@ -8,22 +8,15 @@ export default function P22OffThePage() {
       <p style={{ fontSize: '2.45cqw', lineHeight: 1.5 }}>
         Here’s what I’m doing when I’m not designing. (Trust me, I’m designing quite often, though.)
       </p>
-      <Figure
-        img="improv"
-        width={56}
-        kind="bw"
-        rotate={-1}
-        tapes={[{ corner: 'tl', variant: 0 }, { corner: 'tr', variant: 1 }]}
-        style={{ marginTop: '5.5cqw', marginLeft: '3cqw' }}
-      />
       <p className={s.hobby} style={{ marginTop: '3.4cqw' }}>
         <strong>Improv.</strong> Lately, one of my favourite things to do is perform improv. I’ve always been drawn to theatre and comedy, and improv turned out to be the perfect middle ground.
       </p>
-      <div className={s.hobbyRow} style={{ marginTop: '4cqw' }}>
-        <Figure img="standup" width={13} kind="bw" rotate={1.5} ratio={0.75} position="50% 35%" />
-        <p className={s.hobby}>
-          <strong>Stand-up.</strong> I tried my hand at stand-up comedy too, and failed miserably. So now I just crack bad jokes on team calls.
-        </p>
+      {/* Four prints from the stage, loosely taped and overlapping */}
+      <div style={{ position: 'relative', height: '56cqw', marginTop: '5cqw' }}>
+        <Figure img="improv1" width={42} kind="bw" rotate={-2} tapes={[{ corner: 'tl', variant: 0 }]} style={{ position: 'absolute', left: 0, top: 0 }} />
+        <Figure img="improv3" width={33} kind="bw" rotate={2.5} tapes={[{ corner: 'tr', variant: 1 }]} style={{ position: 'absolute', left: '43cqw', top: '2cqw' }} />
+        <Figure img="improv4" width={37} kind="bw" rotate={1.5} tapes={[{ corner: 'top', variant: 2 }]} style={{ position: 'absolute', left: '3cqw', top: '25cqw' }} />
+        <Figure img="improv2" width={34} kind="bw" rotate={-2.5} tapes={[{ corner: 'top', variant: 0 }]} style={{ position: 'absolute', left: '42cqw', top: '29cqw' }} />
       </div>
     </Page>
   )

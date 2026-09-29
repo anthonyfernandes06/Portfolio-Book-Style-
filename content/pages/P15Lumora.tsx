@@ -1,4 +1,4 @@
-import { Body, CaseStudyLink, CrossRef, MarginNote, Page, ProjectTitle } from '@/components/page/Primitives'
+import { Body, CaseStudyLink, CrossRef, Page, ProjectTitle } from '@/components/page/Primitives'
 import { LINKS } from '@/content/links'
 
 export default function P15Lumora() {
@@ -7,16 +7,14 @@ export default function P15Lumora() {
       <ProjectTitle title="Lumora, an AI financial advisor" tags="Concept, AI, Fin-tech" style={{ marginBottom: '4.5cqw' }} />
       <Body>
         <p>
-          The idea behind Lumora is simple: use AI to help people take control of their entire financial life, from savings, loans and insurance to investments and the big decisions in between, without depending on expensive financial advisors.
+          Financial advice is something that cannot be templatised. It is highly dependent on who you’re giving advice to and their context - their income, loans, dependants, lifestyle, and much more. This makes truly personalised advice extremely challenging, and as a result, people often struggle to make sound financial decisions and can fall into debt traps.
         </p>
-        <p style={{ position: 'relative' }}>
-          I didn’t stop at screens. I vibe-coded the entire working demo in a single week.
-          <MarginNote rotate={-6} as="span" style={{ position: 'absolute', right: '-1cqw', bottom: '-5.2cqw' }}>
-            yes, one week
-          </MarginNote>
+        <p>
+          The idea behind Lumora was simple: can we leverage AI to understand this context and help people make better financial decisions?
         </p>
+        <p>Since this idea had been running through my head for a while, I decided to vibe code it.</p>
       </Body>
-      <div style={{ marginTop: '9cqw' }}>
+      <div style={{ marginTop: '6cqw' }}>
         <CaseStudyLink href={LINKS.lumoraDemo}>Try the demo</CaseStudyLink>
       </div>
       <div style={{ marginTop: 'auto' }}>

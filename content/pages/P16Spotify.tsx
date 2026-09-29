@@ -9,10 +9,7 @@ export default function P16Spotify() {
         <span style={{ fontSize: '1.2em' }}>What if Spotify had a DJ mode?</span>
       </LessonHeadline>
       <Body small>
-        {/* [EDIT: add 1–2 sentences on your premise and the key design decision] */}
-        <p>
-          Some projects start with a brief. This one started with a question: what would it look like if the music app I open every day behaved a little more like a DJ?
-        </p>
+        <p>Some projects start with a brief. This one started with a question: what if Spotify could be the DJ at my house party?</p>
       </Body>
       <div style={{ marginTop: '3.4cqw' }}>
         <CaseStudyLink href={LINKS.spotify}>See the exploration</CaseStudyLink>

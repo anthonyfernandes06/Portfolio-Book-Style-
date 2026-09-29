@@ -1,4 +1,4 @@
-import { Body, CaseStudyLink, Figure, LessonHeadline, Page, Typed } from '@/components/page/Primitives'
+import { Body, CaseStudyLink, Figure, LessonHeadline, MarginNote, Page, Typed } from '@/components/page/Primitives'
 import { LINKS } from '@/content/links'
 
 export default function P17OTT() {
@@ -9,19 +9,40 @@ export default function P17OTT() {
         <span style={{ fontSize: '1.2em' }}>Solving account sharing for OTTs</span>
       </LessonHeadline>
       <Body small>
-        {/* [EDIT: add your angle and outcome in 1–2 sentences] */}
         <p>
-          Almost everyone knows someone who shares a streaming account. This concept explores how an OTT platform might approach that reality through design.
+          Almost everyone knows someone who shares a streaming account. In this concept, I explored how account sharing could be made more restrictive - but only for users who actively exploit the service, without penalising genuine sharing.
         </p>
       </Body>
-      <Figure
-        img="ott"
-        width={64}
-        kind="screen"
-        rotate={1}
-        tapes={[{ corner: 'tl', variant: 0 }, { corner: 'br', variant: 2 }]}
-        style={{ marginTop: '9cqw', alignSelf: 'center' }}
-      />
+      {/* Three prints, loosely taped and overlapping */}
+      <div style={{ position: 'relative', height: '45cqw', marginTop: '6cqw' }}>
+        <Figure
+          img="ott"
+          width={48}
+          kind="screen"
+          rotate={-1}
+          tapes={[{ corner: 'tl', variant: 0 }]}
+          style={{ position: 'absolute', left: 0, top: 0 }}
+        />
+        <Figure
+          img="ottTv"
+          width={40}
+          kind="screen"
+          rotate={2}
+          tapes={[{ corner: 'tr', variant: 1 }]}
+          style={{ position: 'absolute', left: '36cqw', top: '12cqw' }}
+        />
+        <Figure
+          img="ottDevices"
+          width={36}
+          kind="screen"
+          rotate={-2}
+          tapes={[{ corner: 'top', variant: 2 }]}
+          style={{ position: 'absolute', left: '5cqw', top: '24cqw' }}
+        />
+      </div>
+      <MarginNote rotate={-3} style={{ marginTop: '4cqw', marginLeft: '4cqw', maxWidth: '52cqw' }}>
+        P.S. I only came up with this concept because I was annoyed by how restrictive Amazon Prime had become.
+      </MarginNote>
       <div style={{ marginTop: 'auto' }}>
         <CaseStudyLink href={LINKS.ott}>See the exploration</CaseStudyLink>
       </div>

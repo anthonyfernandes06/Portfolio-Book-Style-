@@ -1,13 +1,6 @@
 import { ChapterOpener, InkLink, Page } from '@/components/page/Primitives'
-import { essayHref } from '@/content/links'
+import { LINKS } from '@/content/links'
 import s from './pages.module.css'
-
-const ESSAYS = [
-  'Good design is often subtle',
-  'Understanding perceived value from Swiggy and Zomato cashback',
-  'How to solve the chicken-and-egg problem',
-  'What I’ve learnt about stepping into leadership roles early in your career',
-]
 
 export default function P19Notes() {
   return (
@@ -17,10 +10,10 @@ export default function P19Notes() {
         If you think I’m young and dumb, here’s some proof that I can be intellectual as well.
       </p>
       <ol className={s.essays}>
-        {ESSAYS.map((title, i) => (
+        {LINKS.essays.map(({ title, url }) => (
           <li key={title}>
             <span className={s.essayTitle}>{title}</span>
-            <InkLink href={essayHref(i)} className={s.essayLink}>
+            <InkLink href={url} className={s.essayLink}>
               Read on LinkedIn
             </InkLink>
           </li>

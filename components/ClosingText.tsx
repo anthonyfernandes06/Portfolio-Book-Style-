@@ -2,8 +2,6 @@
 import { useEffect, useRef } from 'react'
 import { store, useBookState } from '@/lib/progress'
 import { range } from '@/lib/easing'
-import { EMAIL, MAILTO } from '@/content/links'
-import { InkLink } from './page/Primitives'
 import s from './stage.module.css'
 
 export default function ClosingText() {
@@ -29,11 +27,11 @@ export default function ClosingText() {
   const live = st.atRest && st.settled === steps
   return (
     <div ref={ref} data-closing className={`${s.closing} ${live ? s.live : ''}`} aria-hidden={!live} inert={!live}>
-      <h2 className={s.closeLine}>Thanks for reading.</h2>
-      <p className={s.closeSub}>Every good book ends with an invitation to the next one.</p>
-      <p className={s.closeMail}>
-        <InkLink href={MAILTO}>{EMAIL}</InkLink>
-      </p>
+      <h2 className={s.closeLine}>
+        That’s all, folks.
+        <br />
+        <span className={s.closeRest}>I told you it would be a quick read.</span>
+      </h2>
     </div>
   )
 }

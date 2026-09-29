@@ -15,7 +15,7 @@ export default function P26Epilogue() {
           <br />
           Technology delivers it.
         </p>
-        <p>I want to be the connector across all three, making sure the value we create reaches as many people as possible.</p>
+        <p>I want to be the connector across all three, ensuring that the value created reaches the maximum number of users.</p>
         <span className={s.initials}>— A.F.</span>
       </div>
     </Page>

@@ -247,14 +247,65 @@
   transform: translateY(-140%);
 }
 
-/* ---------- Toolbox ---------- */
-.toolbox {
+/* ---------- Toolbox: logo stickers around a brain ---------- */
+.stickerBoard {
   position: relative;
-  height: 40cqw;
-  margin-top: 3cqw;
+  height: 62cqw;
+  margin-top: 5cqw;
 }
-.toolbox > span {
+.brain {
   position: absolute;
+  left: calc(39.3cqw - 14cqw);
+  top: calc(31cqw - 14cqw);
+  width: 28cqw;
+  height: 28cqw;
+  transform: rotate(-8deg);
+  filter: drop-shadow(0 0.35cqw 0.45cqw rgba(0, 0, 0, 0.22));
+}
+.sticker {
+  position: absolute;
+  width: 11cqw;
+  height: 11cqw;
+  border-radius: 2.6cqw;
+  background: #fff;
+  overflow: hidden;
+  box-shadow:
+    0 0.3cqw 0.5cqw rgba(0, 0, 0, 0.2),
+    0 0.05cqw 0.1cqw rgba(0, 0, 0, 0.12),
+    inset 0 0 0 0.12cqw rgba(0, 0, 0, 0.04);
+}
+/* a faint sheen, like a printed vinyl sticker */
+.sticker::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.35), rgba(255, 255, 255, 0) 45%);
+  pointer-events: none;
+}
+.sticker img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.stickerLabelled {
+  height: 13.5cqw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.stickerLabelled img {
+  height: 10cqw;
+  width: 10cqw;
+  flex: none;
+}
+.stickerLabel {
+  font-family: var(--typed);
+  font-weight: 700;
+  font-size: 1.35cqw;
+  color: #2b2a26;
+  line-height: 1;
+  margin-top: -0.6cqw;
+  white-space: nowrap;
 }
 
 /* ---------- Essays ---------- */
@@ -281,30 +332,26 @@
 /* ---------- Books ---------- */
 .bookEntry {
   display: grid;
-  grid-template-columns: 22cqw 1fr;
-  gap: 4cqw;
+  grid-template-columns: 14cqw 1fr;
+  gap: 3.4cqw;
   align-items: start;
-}
-.bookEntry.compact {
-  grid-template-columns: 17cqw 1fr;
-  gap: 3.6cqw;
 }
 .bookTitle {
   font-style: italic;
-  font-size: 3.2cqw;
+  font-size: 2.9cqw;
   line-height: 1.15;
   font-weight: 400;
 }
 .bookAuthor {
   display: block;
   font-family: var(--typed);
-  font-size: 1.6cqw;
+  font-size: 1.5cqw;
   color: var(--ink-soft);
-  margin: 0.8cqw 0 1.6cqw;
+  margin: 0.5cqw 0 1cqw;
 }
 .bookText {
-  font-size: 2.35cqw;
-  line-height: 1.48;
+  font-size: 2.12cqw;
+  line-height: 1.45;
   text-wrap: pretty;
 }
 
@@ -388,6 +435,9 @@
   color: var(--graphite);
   overflow: visible;
 }
+.endStrike {
+  display: block;
+}
 .endStrike svg {
   width: 100%;
   height: 100%;
@@ -399,12 +449,8 @@
   font-family: var(--hand);
   font-size: 3.2cqw;
   color: var(--graphite);
-  opacity: 0;
-  transform: rotate(-3deg);
-  transition: opacity 600ms ease 1.1s;
-}
-.tbc.shown {
   opacity: 0.85;
+  transform: rotate(-3deg);
 }
 
 /* ---------- Back cover ---------- */
@@ -413,6 +459,7 @@
   font-size: 3.1cqw;
   line-height: 1.4;
   max-width: 26ch;
+  text-wrap: balance;
   margin-top: 8cqw;
   color: #4a4843;
   font-variation-settings: 'opsz' 24;

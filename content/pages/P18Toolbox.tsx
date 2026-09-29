@@ -1,20 +1,40 @@
-import { Body, ChapterOpener, MarginNote, Page, TornLabel } from '@/components/page/Primitives'
+import { Body, ChapterOpener, MarginNote, Page } from '@/components/page/Primitives'
+import { BrainSticker } from '@/components/svg/BrainSticker'
+import { BASE_PATH } from '@/content/images'
 import s from './pages.module.css'
 
-// [CONFIRM: tools taken from the current site]
-const TOOLS: { name: string; left: string; top: string; rotate: number }[] = [
-  { name: 'Figma', left: '2%', top: '4%', rotate: -3 },
-  { name: 'FigJam', left: '26%', top: '0%', rotate: 2 },
-  { name: 'Framer', left: '52%', top: '6%', rotate: -1.5 },
-  { name: 'Notion', left: '76%', top: '1%', rotate: 3 },
-  { name: 'Claude', left: '8%', top: '30%', rotate: 2.5 },
-  { name: 'Claude Code', left: '33%', top: '27%', rotate: -2 },
-  { name: 'ChatGPT', left: '66%', top: '33%', rotate: 1.5 },
-  { name: 'Gemini', left: '0%', top: '58%', rotate: -1 },
-  { name: 'Lovable', left: '23%', top: '60%', rotate: 3.5 },
-  { name: 'UX Pilot', left: '47%', top: '56%', rotate: -3 },
-  { name: 'Shopify', left: '73%', top: '63%', rotate: 1 },
+type Tool = { name: string; file: string; rotate: number; label?: string }
+
+// Stuck around the brain, clockwise from the top.
+const TOOLS: Tool[] = [
+  { name: 'Figma', file: 'figma', rotate: -6 },
+  { name: 'Claude Code', file: 'claude', rotate: 5, label: 'Claude Code' },
+  { name: 'Notion', file: 'notion', rotate: -3 },
+  { name: 'ChatGPT', file: 'chatgpt', rotate: 7 },
+  { name: 'Framer', file: 'framer', rotate: -5 },
+  { name: 'Shopify', file: 'shopify', rotate: 4 },
+  { name: 'Lovable', file: 'lovable', rotate: -7 },
+  { name: 'Gemini', file: 'gemini', rotate: 3 },
+  { name: 'UX Pilot', file: 'uxpilot', rotate: -4 },
 ]
+
+// Positions on a loose ellipse around the centre (in cqw), nudged so it feels hand-placed.
+const CX = 39.3
+const CY = 31
+const RX = 31
+const RY = 25
+const NUDGE = [
+  [0, 1],
+  [1, -1],
+  [0, 1.5],
+  [-1, 0],
+  [1, -1],
+  [-1, 1],
+  [0, -1],
+  [1, 1],
+  [-1, 0],
+]
+const STICKER = 11
 
 export default function P18Toolbox() {
   return (
@@ -23,16 +43,28 @@ export default function P18Toolbox() {
       <Body small>
         <p>Every craftsperson has a workbench. This is what’s on mine.</p>
       </Body>
-      <ul className={s.toolbox} style={{ listStyle: 'none', marginTop: '7cqw' }} aria-label="Tools">
-        {TOOLS.map((t, i) => (
-          <li key={t.name} style={{ position: 'absolute', left: t.left, top: t.top }}>
-            <TornLabel seed={i + 3} rotate={t.rotate}>
-              {t.name}
-            </TornLabel>
-          </li>
-        ))}
-      </ul>
-      <MarginNote rotate={-3} style={{ marginTop: '4cqw', marginLeft: '6cqw' }}>
+      <div className={s.stickerBoard}>
+        <BrainSticker className={s.brain} text="But well I use this tool the most" />
+        <ul style={{ listStyle: 'none' }} aria-label="Tools">
+          {TOOLS.map((t, i) => {
+            const a = ((-90 + i * 40) * Math.PI) / 180
+            const x = CX + RX * Math.cos(a) + NUDGE[i][0] - STICKER / 2
+            const y = CY + RY * Math.sin(a) + NUDGE[i][1] - STICKER / 2
+            return (
+              <li
+                key={t.name}
+                className={`${s.sticker} ${t.label ? s.stickerLabelled : ''}`}
+                style={{ left: `${x.toFixed(2)}cqw`, top: `${y.toFixed(2)}cqw`, transform: `rotate(${t.rotate}deg)` }}
+              >
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={`${BASE_PATH}/images/stickers/${t.file}.png`} alt={t.name} width={360} height={360} loading="lazy" />
+                {t.label && <span className={s.stickerLabel}>{t.label}</span>}
+              </li>
+            )
+          })}
+        </ul>
+      </div>
+      <MarginNote rotate={-3} style={{ marginTop: 'auto', marginLeft: '6cqw' }}>
         and lately, a lot of vibe coding
       </MarginNote>
     </Page>

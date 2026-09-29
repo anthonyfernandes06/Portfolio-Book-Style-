@@ -7,23 +7,37 @@ export const EMAIL = 'anthonyfernandes0601@gmail.com'
 export const MAILTO = `mailto:${EMAIL}`
 
 export const LINKS = {
-  linkedin: 'https://linkedin.com/in/anthony-fernandes-64aa71194',
-  resume: null as string | null, // [RESUME_PDF_URL]
+  linkedin: 'https://www.linkedin.com/in/anthony-fernandes-64aa71194',
+  resume: 'https://drive.google.com/drive/folders/1-845h1ycQmQdXi6JJGQmXdNY9mFwSMRv' as string | null,
 
   researchAiDemo: 'https://reesearch.ai/' as string | null,
   actingCaseStudy: 'https://www.yellowslice.in/project/the-actors-truth' as string | null,
-  goldCaseStudy: null as string | null, // [GOLD_CASE_STUDY_URL]
-  lumoraDemo: null as string | null, // [LUMORA_DEMO_URL]
-  spotify: null as string | null, // [SPOTIFY_URL]
-  ott: null as string | null, // [OTT_URL]
+  goldCaseStudy: 'https://www.yellowslice.in/project/augmont' as string | null,
+  lumoraDemo: 'https://smart-floss-47697979.figma.site/' as string | null,
+  spotify: 'https://heavenly-neptune-845247.framer.app/spotify-case-study' as string | null,
+  ott: 'https://heavenly-neptune-845247.framer.app/netflix-ott-case-study' as string | null,
 
+  /** LinkedIn essays, in the order they appear on p.19. */
   essays: [
-    null, // [LINKEDIN_URL_1] Good design is often subtle
-    null, // [LINKEDIN_URL_2] Perceived value from Swiggy and Zomato cashback
-    null, // [LINKEDIN_URL_3] The chicken-and-egg problem
-    null, // [LINKEDIN_URL_4] Stepping into leadership roles early
-  ] as (string | null)[],
+    {
+      title: 'How to choose the right gamification mechanisms',
+      url: 'https://www.linkedin.com/posts/anthony-fernandes-64aa71194_gamification-mechanics-ugcPost-7463628121905225728-3nvJ/',
+    },
+    {
+      title: 'Good design is often subtle',
+      url: 'https://www.linkedin.com/posts/anthony-fernandes-64aa71194_productdesign-designthinking-zomato-share-7419039255869603840-HALF/',
+    },
+    {
+      title: 'Understanding perceived value from Swiggy and Zomato cashback',
+      url: 'https://www.linkedin.com/posts/anthony-fernandes-64aa71194_swiggy-dinecash-breakdown-ugcPost-7426979674402205696-XJ9U/',
+    },
+    {
+      title: 'How to solve the chicken-and-egg problem',
+      url: 'https://www.linkedin.com/posts/anthony-fernandes-64aa71194_how-do-you-build-a-product-that-only-works-share-7412842202172882944-7I4l/',
+    },
+    {
+      title: 'What I’ve learnt about stepping into leadership roles early in your career',
+      url: 'https://www.linkedin.com/posts/anthony-fernandes-64aa71194_leadership-management-leadershiproles-share-7397140030688927744-uRJI/',
+    },
+  ],
 }
-
-/** Until an essay URL is supplied, point readers at the LinkedIn activity feed. */
-export const essayHref = (i: number) => LINKS.essays[i] ?? `${LINKS.linkedin}/recent-activity/all/`
