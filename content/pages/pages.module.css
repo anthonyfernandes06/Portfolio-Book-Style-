@@ -69,6 +69,15 @@
   font-size: 1.7cqw;
 }
 
+/* Calendar (mobile): covers are centred with the spiral along the top. */
+:global(.single) .cover,
+:global(.single) .back.cover {
+  padding: 12cqw 11cqw 8cqw;
+}
+:global(.single) .inside {
+  padding: 16cqw 10.7cqw 12cqw;
+}
+
 /* ---------- Inside front cover ---------- */
 .inside {
   position: absolute;

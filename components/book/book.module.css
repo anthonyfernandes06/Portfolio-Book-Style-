@@ -414,7 +414,7 @@
   transition: none;
 }
 
-/* ---------- Single-page (mobile) ---------- */
+/* ---------- Single-page (mobile): a top-bound desk calendar ---------- */
 .singlePos {
   position: absolute;
   top: 50%;
@@ -426,18 +426,123 @@
 .single .tilt {
   transform-origin: calc(var(--page-w) * 0.5) 50%;
 }
+/* Pages pivot on the top edge, so perspective looks down from just above it. */
+.single .leaves {
+  perspective: 1600px;
+  perspective-origin: calc(var(--page-w) * 0.5) -20%;
+}
+.single .leaf {
+  transform-origin: 50% 0;
+}
+.single .back {
+  transform: rotateX(180deg);
+  border-radius: 0 0 1px 1px;
+}
+.single .face {
+  border-radius: 0 0 1px 1px;
+}
+.single .board {
+  border-radius: 0 0 3px 3px;
+}
+.single .back.board {
+  border-radius: 0 0 3px 3px;
+}
+/* board thickness sits on the lower edge only */
+.single .board::before {
+  display: none;
+}
 .sheetBack {
   background: var(--paper-back);
 }
-.tapZone {
+
+/* Holes along the top edge */
+.holesTop {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(2.2cqw - 0.55cqw);
+  height: 1.1cqw;
+  z-index: 6;
+  pointer-events: none;
+}
+.holeTop {
   position: absolute;
   top: 0;
-  width: 28%;
-  height: 22%;
+  width: 1.1cqw;
+  height: 1.1cqw;
+  margin-left: -0.55cqw;
+  border-radius: 50%;
+  background: #262522;
+  box-shadow:
+    inset 0 0.18cqw 0.25cqw rgba(0, 0, 0, 0.7),
+    0 0.08cqw 0 rgba(255, 255, 255, 0.55);
+}
+
+/* The back of a flipped sheet is upside down, so its holes sit on its local bottom edge. */
+.single .back .holesTop {
+  top: auto;
+  bottom: calc(2.2cqw - 0.55cqw);
+}
+.single .back[data-edge='top'] .gutter {
+  top: auto;
+  bottom: 0;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.09), rgba(0, 0, 0, 0.025) 40%, transparent);
+}
+
+/* Shading follows the binding: it gathers at the top edge. */
+.face[data-edge='top'] .gutter {
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: auto;
+  width: auto;
+  height: 7%;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.09), rgba(0, 0, 0, 0.025) 40%, transparent);
+}
+.face[data-edge='top'] .shade {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.07) 45%, rgba(0, 0, 0, 0) 80%, rgba(255, 255, 255, 0.06));
+}
+.face[data-edge='top'] .cast {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.36), rgba(0, 0, 0, 0.14) 30%, rgba(0, 0, 0, 0) 75%);
+}
+
+.bindingTop {
+  position: absolute;
+  left: 0;
+  top: calc(var(--page-w) * -0.045);
+  width: var(--page-w);
+  height: calc(var(--page-w) * 0.09);
+  z-index: 3;
+  pointer-events: none;
+  overflow: visible;
+}
+
+/* Pages still to come, stacked under the bottom edge */
+.stackBottom {
+  position: absolute;
+  left: 3px;
+  width: calc(var(--page-w) - 5px);
+  top: var(--page-h);
+  height: 8px;
+  z-index: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(180deg, #e2e0d9 0 1px, #a6a399 1px 2px);
+  border-radius: 0 0 2px 2px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  transform-origin: 50% 0;
+}
+
+/* Tap to turn: lift the bottom corners, like tearing off a calendar page. */
+.tapZone {
+  position: absolute;
+  /* sized from the page itself; the wrapper around it is zero-width */
+  top: calc(var(--page-h) * 0.88);
+  width: calc(var(--page-w) * 0.24);
+  height: calc(var(--page-h) * 0.12);
   pointer-events: auto;
 }
 .tapNext {
-  left: calc(var(--page-w) * 0.72);
+  left: calc(var(--page-w) * 0.76);
 }
 .tapPrev {
   left: 0;

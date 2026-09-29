@@ -103,7 +103,10 @@ class BookStore {
   soundLock = false
 
   kindOf(k: number): 'board' | 'paper' {
-    return k === 0 || k === this.cfg.steps - 1 ? 'board' : 'paper'
+    // Desktop: the first and last leaves are the covers. Mobile: only the front
+    // cover turns as a board; the last flip is page 27 revealing the back cover.
+    if (k === 0) return 'board'
+    return this.state.mode === 'spread' && k === this.cfg.steps - 1 ? 'board' : 'paper'
   }
 
   /**
@@ -372,13 +375,21 @@ export function initEngine(mode: Mode) {
     }, 120)
   }
 
+  // Editing the #p-… part of the URL in an open tab doesn't reload the page; follow it.
+  const onHash = () => {
+    const n = parseHash()
+    if (n !== null && n !== store.state.settled) go(n)
+  }
+
   window.addEventListener('keydown', onKey)
   window.addEventListener('resize', onResize)
+  window.addEventListener('hashchange', onHash)
   if (process.env.NODE_ENV !== 'production') Object.assign(window, { __book: { store, go } })
 
   return () => {
     window.removeEventListener('keydown', onKey)
     window.removeEventListener('resize', onResize)
+    window.removeEventListener('hashchange', onHash)
     clearTimeout(snapTimer)
     clearTimeout(safetyTimer)
     gsap.ticker.remove(tick)

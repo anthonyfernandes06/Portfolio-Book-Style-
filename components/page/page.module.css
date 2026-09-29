@@ -30,9 +30,11 @@
   left: 9.4cqw;
   right: 12cqw;
 }
-:global(.single) .page[data-side='left'] .area {
-  left: 12cqw;
-  right: 9.4cqw;
+/* Calendar (mobile): no spine side, so even margins; the top clears the spiral. */
+:global(.single) .page .area {
+  left: 10.7cqw;
+  right: 10.7cqw;
+  top: 13cqw;
 }
 
 .runningHead {
@@ -50,9 +52,10 @@
 .page[data-side='left'] .runningHead {
   left: 9.4cqw;
 }
-:global(.single) .page[data-side='left'] .runningHead {
+:global(.single) .page .runningHead {
   left: auto;
-  right: 9.4cqw;
+  right: 10.7cqw;
+  top: 6.6cqw;
 }
 
 /* ---------- Footer: page number in the outer corner + the ever-present email ---------- */
@@ -77,9 +80,9 @@
 .page[data-side='left'] .pageNo {
   left: 9.4cqw;
 }
-:global(.single) .page[data-side='left'] .pageNo {
+:global(.single) .page .pageNo {
   left: auto;
-  right: 9.4cqw;
+  right: 10.7cqw;
 }
 .footEmail {
   position: absolute;
