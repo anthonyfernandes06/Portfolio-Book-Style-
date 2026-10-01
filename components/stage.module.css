@@ -56,6 +56,12 @@
 }
 
 /* ---------- Hero (left half) ---------- */
+.hero,
+.closing {
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.35),
+    0 0 28px rgba(18, 10, 5, 0.55);
+}
 .hero {
   position: absolute;
   top: 50%;
@@ -78,7 +84,7 @@
   margin-top: 1.4vw;
   font-size: clamp(15px, 1.4vw, 24px);
   line-height: 1.4;
-  color: rgba(236, 235, 230, 0.72);
+  color: rgba(236, 235, 230, 0.88);
 }
 .heroNote {
   position: relative;
@@ -86,7 +92,7 @@
   display: inline-block;
   font-family: var(--hand);
   font-size: clamp(15px, 1.35vw, 24px);
-  color: rgba(236, 235, 230, 0.62);
+  color: rgba(236, 235, 230, 0.8);
   transform: rotate(-3deg);
   transform-origin: left center;
   white-space: nowrap;
@@ -163,7 +169,7 @@
   margin-top: 0.35em;
   font-size: 0.62em;
   line-height: 1.15;
-  color: rgba(236, 235, 230, 0.8);
+  color: rgba(236, 235, 230, 0.9);
 }
 .closeSub {
   margin-top: 1.4vw;

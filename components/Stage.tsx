@@ -4,7 +4,7 @@ import { initEngine, scrollLengthVh, scrollToPage, useBookState, type Mode } fro
 import { initSound } from '@/lib/sound'
 import Book from './book/Book'
 import MobileBook from './book/MobileBook'
-import Desk from './Desk'
+import Desk, { Sunlight } from './Desk'
 import HeroText from './HeroText'
 import ClosingText from './ClosingText'
 import s from './stage.module.css'
@@ -41,6 +41,7 @@ export default function Stage() {
           <Desk />
           <HeroText />
           {mode === 'single' ? <MobileBook /> : <Book />}
+          <Sunlight />
           <ClosingText />
         </div>
       </main>
