@@ -43,7 +43,7 @@ export default function P17OTT() {
         P.S. I only came up with this concept because I was annoyed by how restrictive Amazon Prime had become.
       </MarginNote>
       <div style={{ marginTop: 'auto' }}>
-        <PaperLink paper="ott">See the exploration</PaperLink>
+        <PaperLink paper="ott">Read More</PaperLink>
       </div>
     </Page>
   )

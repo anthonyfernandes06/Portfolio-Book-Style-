@@ -16,7 +16,7 @@ export default function P15Lumora() {
       </Body>
       <div style={{ marginTop: '6cqw', display: 'flex', flexWrap: 'wrap', gap: '2.5cqw 7cqw' }}>
         <CaseStudyLink href={LINKS.lumoraDemo}>Try the demo</CaseStudyLink>
-        <PaperLink paper="lumora">See the exploration</PaperLink>
+        <PaperLink paper="lumora">Read More</PaperLink>
       </div>
       <div style={{ marginTop: 'auto' }}>
         <CrossRef toPage={24}>more on why money matters to me, p.</CrossRef>

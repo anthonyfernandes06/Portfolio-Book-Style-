@@ -11,7 +11,7 @@ export default function P16Spotify() {
         <p>Some projects start with a brief. This one started with a question: what if Spotify could be the DJ at my house party?</p>
       </Body>
       <div style={{ marginTop: '3.4cqw' }}>
-        <PaperLink paper="spotify">See the exploration</PaperLink>
+        <PaperLink paper="spotify">Read More</PaperLink>
       </div>
       <Figure
         img="spotify"
