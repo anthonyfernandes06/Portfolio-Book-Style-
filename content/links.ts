@@ -14,8 +14,6 @@ export const LINKS = {
   actingCaseStudy: 'https://www.yellowslice.in/project/the-actors-truth' as string | null,
   goldCaseStudy: 'https://www.yellowslice.in/project/augmont' as string | null,
   lumoraDemo: 'https://smart-floss-47697979.figma.site/' as string | null,
-  spotify: 'https://heavenly-neptune-845247.framer.app/spotify-case-study' as string | null,
-  ott: 'https://heavenly-neptune-845247.framer.app/netflix-ott-case-study' as string | null,
 
   /** LinkedIn essays, in the order they appear on p.19. */
   essays: [

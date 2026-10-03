@@ -1,5 +1,4 @@
-import { Body, CaseStudyLink, Figure, LessonHeadline, MarginNote, Page, Typed } from '@/components/page/Primitives'
-import { LINKS } from '@/content/links'
+import { Body, PaperLink, Figure, LessonHeadline, MarginNote, Page, Typed } from '@/components/page/Primitives'
 
 export default function P17OTT() {
   return (
@@ -44,7 +43,7 @@ export default function P17OTT() {
         P.S. I only came up with this concept because I was annoyed by how restrictive Amazon Prime had become.
       </MarginNote>
       <div style={{ marginTop: 'auto' }}>
-        <CaseStudyLink href={LINKS.ott}>See the exploration</CaseStudyLink>
+        <PaperLink paper="ott">See the exploration</PaperLink>
       </div>
     </Page>
   )

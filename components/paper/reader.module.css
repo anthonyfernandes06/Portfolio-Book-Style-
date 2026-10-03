@@ -1,0 +1,171 @@
+/* The paper, held up over the book. Behind it the scene falls out of focus. */
+
+.reader {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+}
+.reader[data-phase='leave'] {
+  pointer-events: none;
+}
+
+/* Depth of field, not a dimmer: the book and desk blur as the eye moves to the paper. */
+.blur {
+  position: fixed;
+  inset: 0;
+  z-index: 59;
+  pointer-events: none;
+  -webkit-backdrop-filter: blur(0px);
+  backdrop-filter: blur(0px);
+  transition:
+    backdrop-filter 520ms cubic-bezier(0.3, 0.7, 0.3, 1),
+    -webkit-backdrop-filter 520ms cubic-bezier(0.3, 0.7, 0.3, 1);
+}
+.blur[data-phase='open'] {
+  -webkit-backdrop-filter: blur(11px);
+  backdrop-filter: blur(11px);
+}
+.blur[data-phase='leave'] {
+  transition-duration: 440ms;
+}
+
+.scroller {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  outline: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Out of the folder at the bottom of the desk, up into view. */
+.stack {
+  width: min(860px, calc(100vw - 64px));
+  margin: 0 auto;
+  padding: 64px 0 56px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translateY(105vh);
+  transition: transform 640ms cubic-bezier(0.18, 0.8, 0.22, 1);
+}
+.reader[data-phase='open'] .stack {
+  transform: none;
+}
+.reader[data-phase='leave'] .stack {
+  transform: translateY(105vh);
+  transition: transform 440ms cubic-bezier(0.55, 0, 0.75, 0.25);
+}
+
+/* ---------- Paper tags: close (pinned) and put back (at the end) ---------- */
+.tag {
+  appearance: none;
+  border: 0;
+  margin: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px 9px;
+  font-family: var(--typed);
+  font-size: 14px;
+  line-height: 1;
+  color: var(--ink);
+  background: #fbfaf6;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.3),
+    0 6px 14px rgba(0, 0, 0, 0.22);
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease;
+}
+.tag:hover {
+  transform: translateY(-1px) rotate(var(--r, 0deg));
+  box-shadow:
+    0 2px 3px rgba(0, 0, 0, 0.3),
+    0 10px 20px rgba(0, 0, 0, 0.24);
+}
+.tag:focus-visible {
+  outline: 2px solid var(--ink-blue);
+  outline-offset: 3px;
+}
+
+.close {
+  --r: 1.5deg;
+  position: absolute;
+  top: 20px;
+  right: 22px;
+  z-index: 2;
+  transform: rotate(var(--r));
+  opacity: 0;
+  transition:
+    opacity 260ms ease 240ms,
+    transform 160ms ease,
+    box-shadow 160ms ease;
+}
+.reader[data-phase='open'] .close {
+  opacity: 1;
+}
+.reader[data-phase='leave'] .close {
+  opacity: 0;
+  transition-delay: 0ms;
+  transition-duration: 120ms;
+}
+.cross {
+  font-family: var(--serif);
+  font-size: 22px;
+  line-height: 0.6;
+  margin-top: -2px;
+}
+
+.putBack {
+  --r: -1deg;
+  margin-top: 36px;
+  transform: rotate(var(--r));
+}
+
+/* No room beside the paper for the full label: keep just the cross. */
+@media (max-width: 1239px) {
+  .closeLabel {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .close {
+    top: 14px;
+    right: 14px;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 767px) {
+  .stack {
+    width: calc(100vw - 20px);
+    padding: 66px 0 40px;
+  }
+  .close {
+    top: 10px;
+    right: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stack,
+  .reader[data-phase='leave'] .stack {
+    transform: none;
+    opacity: 0;
+    transition: opacity 200ms ease;
+  }
+  .reader[data-phase='open'] .stack {
+    opacity: 1;
+  }
+  .blur {
+    transition-duration: 200ms;
+  }
+}

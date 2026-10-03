@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, type MouseEvent } from 'react'
 import { store, turnNext, turnPrev, useBookState } from '@/lib/progress'
 import { clamp, easeInOutSine, range } from '@/lib/easing'
 import { useReducedMotion } from '@/lib/useReducedMotion'
@@ -10,6 +10,21 @@ import s from './book.module.css'
 
 const M = FACES.length
 const Blank = () => null
+
+/** Corner zones turn the page, unless the tap lands on a link printed in that corner. */
+function turnOrFollow(e: MouseEvent<HTMLButtonElement>, turn: () => void) {
+  if (e.detail > 0) {
+    const zone = e.currentTarget
+    zone.style.pointerEvents = 'none'
+    const under = document.elementFromPoint(e.clientX, e.clientY)?.closest<HTMLElement>('a, button')
+    zone.style.pointerEvents = ''
+    if (under && under !== zone) {
+      under.click()
+      return
+    }
+  }
+  turn()
+}
 
 /**
  * Single-page mode (< 768px): a top-bound desk calendar. One face at a time;
@@ -150,8 +165,8 @@ export default function MobileBook() {
           <TopBinding />
           {ready && (
             <div className={s.curlLayer}>
-              {st.settled > 0 && <button className={`${s.tapZone} ${s.tapPrev}`} aria-label="Turn to previous page" onClick={() => turnPrev()} />}
-              {st.settled < M - 1 && <button className={`${s.tapZone} ${s.tapNext}`} aria-label="Turn to next page" onClick={() => turnNext()} />}
+              {st.settled > 0 && <button className={`${s.tapZone} ${s.tapPrev}`} aria-label="Turn to previous page" onClick={(e) => turnOrFollow(e, turnPrev)} />}
+              {st.settled < M - 1 && <button className={`${s.tapZone} ${s.tapNext}`} aria-label="Turn to next page" onClick={(e) => turnOrFollow(e, turnNext)} />}
             </div>
           )}
         </div>

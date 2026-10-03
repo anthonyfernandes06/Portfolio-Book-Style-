@@ -1,4 +1,4 @@
-import { Body, CaseStudyLink, CrossRef, Page, ProjectTitle } from '@/components/page/Primitives'
+import { Body, CaseStudyLink, CrossRef, Page, PaperLink, ProjectTitle } from '@/components/page/Primitives'
 import { LINKS } from '@/content/links'
 
 export default function P15Lumora() {
@@ -14,8 +14,9 @@ export default function P15Lumora() {
         </p>
         <p>Since this idea had been running through my head for a while, I decided to vibe code it.</p>
       </Body>
-      <div style={{ marginTop: '6cqw' }}>
+      <div style={{ marginTop: '6cqw', display: 'flex', flexWrap: 'wrap', gap: '2.5cqw 7cqw' }}>
         <CaseStudyLink href={LINKS.lumoraDemo}>Try the demo</CaseStudyLink>
+        <PaperLink paper="lumora">See the exploration</PaperLink>
       </div>
       <div style={{ marginTop: 'auto' }}>
         <CrossRef toPage={24}>more on why money matters to me, p.</CrossRef>

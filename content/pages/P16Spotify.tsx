@@ -1,5 +1,4 @@
-import { Body, CaseStudyLink, Figure, LessonHeadline, Page, Typed } from '@/components/page/Primitives'
-import { LINKS } from '@/content/links'
+import { Body, PaperLink, Figure, LessonHeadline, Page, Typed } from '@/components/page/Primitives'
 
 export default function P16Spotify() {
   return (
@@ -12,7 +11,7 @@ export default function P16Spotify() {
         <p>Some projects start with a brief. This one started with a question: what if Spotify could be the DJ at my house party?</p>
       </Body>
       <div style={{ marginTop: '3.4cqw' }}>
-        <CaseStudyLink href={LINKS.spotify}>See the exploration</CaseStudyLink>
+        <PaperLink paper="spotify">See the exploration</PaperLink>
       </div>
       <Figure
         img="spotify"

@@ -3,7 +3,8 @@ import Image from 'next/image'
 import type { CSSProperties, ReactNode } from 'react'
 import { IMAGES, type ImageKey } from '@/content/images'
 import { EMAIL, MAILTO } from '@/content/links'
-import { scrollToPage, store, useBookState } from '@/lib/progress'
+import { PAPERS, type PaperId } from '@/content/papers/registry'
+import { openPaper, scrollToPage, store, useBookState } from '@/lib/progress'
 import { BinderClip, PaperClip, Tape } from '@/components/svg/Attachments'
 import { HandCircle, Squiggle } from '@/components/svg/Strokes'
 import s from './page.module.css'
@@ -216,6 +217,24 @@ export function CaseStudyLink({ href, children = 'Read the full case study', sty
     <InkLink href={href} className={s.caseLink} style={style}>
       {children}
     </InkLink>
+  )
+}
+
+/** Like a case-study link, but it pulls the full paper out of the folder on the desk. */
+export function PaperLink({ paper, children = 'Read the paper', style }: { paper: PaperId; children?: ReactNode; style?: CSSProperties }) {
+  return (
+    <a
+      className={`${s.link} ${s.caseLink}`}
+      href={`#${PAPERS[paper].slug}`}
+      style={style}
+      onClick={(e) => {
+        e.preventDefault()
+        openPaper(paper)
+      }}
+    >
+      {children}
+      <Squiggle className={s.squiggle} />
+    </a>
   )
 }
 

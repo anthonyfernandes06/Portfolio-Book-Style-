@@ -66,6 +66,10 @@ html.lenis body {
 body {
   font-family: var(--serif);
   overflow-x: hidden;
+  /* clip, not hidden, where supported: a hidden body becomes its own scroll box
+     whenever <html> stops scrolling (a paper is open), and the sticky stage
+     would then scroll away with the page */
+  overflow-x: clip;
 }
 
 h1,

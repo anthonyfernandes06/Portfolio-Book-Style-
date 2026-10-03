@@ -9,8 +9,9 @@ import { useSyncExternalStore } from 'react'
 import Lenis from 'lenis'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { PAPERS, paperFromHash, type PaperId } from '@/content/papers/registry'
 import { clamp, easeInOutCubic, power2InOut, power3InOut } from './easing'
-import { playPageTurn, playRiffle } from './sound'
+import { playPageTurn, playPaperSlide, playRiffle } from './sound'
 
 export type Mode = 'spread' | 'single'
 
@@ -61,6 +62,8 @@ export type BookState = {
   /** Visitor arrived on a deep link: skip the intro. */
   deepLinked: boolean
   mode: Mode
+  /** A paper pulled from the folder, lying over the book (the book waits underneath). */
+  paper: PaperId | null
 }
 
 type ProgressFn = (p: number) => void
@@ -77,6 +80,7 @@ class BookStore {
     viaKeyboard: false,
     deepLinked: false,
     mode: 'spread',
+    paper: null,
   }
   private progressFns = new Set<ProgressFn>()
   private stateFns = new Set<() => void>()
@@ -194,9 +198,11 @@ function yToProgress(y: number) {
 function settle(n: number) {
   store.patch({ settled: n, atRest: true })
   store.setProgress(n)
-  const hash = store.cfg.spreadToHash(n)
+  // While a paper is open, the address names the paper rather than the page.
+  const paper = store.state.paper
+  const hash = paper ? `#${PAPERS[paper].slug}` : store.cfg.spreadToHash(n)
   const url = window.location.pathname + window.location.search + hash
-  history.replaceState(null, '', url)
+  history.replaceState(paper ? history.state : null, '', url)
 }
 
 type GoOptions = { duration?: number; easing?: (t: number) => number; keyboard?: boolean }
@@ -292,12 +298,16 @@ function parseHash(): number | null {
   if (h === 'back-cover') return store.cfg.steps
   if (h === 'contents') return store.cfg.pageToSpread(1)
   if (h === 'inside-cover') return 1
+  const paper = paperFromHash(h)
+  if (paper) return clamp(store.cfg.pageToSpread(PAPERS[paper].page), 0, store.cfg.steps)
   const m = h.match(/^p-(\d+)$/)
   if (m) return clamp(store.cfg.pageToSpread(parseInt(m[1], 10)), 0, store.cfg.steps)
   return null
 }
 
 function onKey(e: KeyboardEvent) {
+  // An open paper scrolls and closes on its own keys.
+  if (store.state.paper) return
   const el = e.target as HTMLElement | null
   if (el && (el.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName))) return
   if (e.metaKey || e.ctrlKey || e.altKey) return
@@ -320,6 +330,51 @@ function onKey(e: KeyboardEvent) {
     if (k === 'ArrowDown') turnNext(true)
     else turnPrev(true)
   }
+}
+
+/* ------------------------------------------------------------------ */
+/* Papers: a sheet pulled from the folder lies over the book           */
+/* ------------------------------------------------------------------ */
+
+/** Opening added a history entry, so Back (or closing) steps over it. */
+let paperPushed = false
+
+function showPaper(id: PaperId) {
+  clearTimeout(snapTimer)
+  lenis?.stop()
+  if (store.state.paper !== id) store.patch({ paper: id })
+}
+
+function hidePaper() {
+  if (!store.state.paper) return
+  store.patch({ paper: null })
+  lenis?.start()
+}
+
+export function openPaper(id: PaperId) {
+  if (store.state.paper === id) return
+  const url = window.location.pathname + window.location.search + `#${PAPERS[id].slug}`
+  if (store.state.paper) history.replaceState({ paper: id }, '', url)
+  else {
+    history.pushState({ paper: id }, '', url)
+    paperPushed = true
+  }
+  playPaperSlide(1)
+  showPaper(id)
+}
+
+export function closePaper() {
+  if (!store.state.paper) return
+  playPaperSlide(-1)
+  if (paperPushed) {
+    // The address change (popstate) finishes the close.
+    paperPushed = false
+    history.back()
+    return
+  }
+  hidePaper()
+  const url = window.location.pathname + window.location.search + store.cfg.spreadToHash(store.state.settled)
+  history.replaceState(null, '', url)
 }
 
 export function initEngine(mode: Mode) {
@@ -351,6 +406,13 @@ export function initEngine(mode: Mode) {
     snapTimer = setTimeout(snap, 120)
   })
 
+  // A paper named in the address opens over its page (on load, or again after a layout change).
+  const paperInHash = paperFromHash(window.location.hash)
+  if (paperInHash) {
+    if (!store.state.paper) paperPushed = false
+    showPaper(paperInHash)
+  }
+
   // Deep link: jump straight to the spread, no intro.
   const fromHash = parseHash()
   if (fromHash !== null && fromHash > 0) {
@@ -376,7 +438,16 @@ export function initEngine(mode: Mode) {
   }
 
   // Editing the #p-… part of the URL in an open tab doesn't reload the page; follow it.
+  // Back and Forward land here too, opening or putting away a paper.
   const onHash = () => {
+    const paper = paperFromHash(window.location.hash)
+    if (paper && store.state.paper !== paper) {
+      paperPushed = true
+      showPaper(paper)
+    } else if (!paper && store.state.paper) {
+      paperPushed = false
+      hidePaper()
+    }
     const n = parseHash()
     if (n !== null && n !== store.state.settled) go(n)
   }
@@ -384,12 +455,14 @@ export function initEngine(mode: Mode) {
   window.addEventListener('keydown', onKey)
   window.addEventListener('resize', onResize)
   window.addEventListener('hashchange', onHash)
+  window.addEventListener('popstate', onHash)
   if (process.env.NODE_ENV !== 'production') Object.assign(window, { __book: { store, go } })
 
   return () => {
     window.removeEventListener('keydown', onKey)
     window.removeEventListener('resize', onResize)
     window.removeEventListener('hashchange', onHash)
+    window.removeEventListener('popstate', onHash)
     clearTimeout(snapTimer)
     clearTimeout(safetyTimer)
     gsap.ticker.remove(tick)

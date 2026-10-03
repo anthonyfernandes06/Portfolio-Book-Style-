@@ -272,3 +272,43 @@ export function playRiffle(pages: number, dur: number, direction: 1 | -1 = 1) {
   burst(a, t + dur * 0.95, { dur: 0.08, gain: 0.2, type: 'lowpass', freq: 800, attack: 0.002 })
   burst(a, t + dur * 0.95, { dur: 0.035, gain: 0.07, type: 'bandpass', freq: 2600, q: 1.2 })
 }
+
+/**
+ * A sheet sliding out of the folder (direction 1) or back into it (-1):
+ * a crinkle as it's picked up, then a long, soft brush of paper on card.
+ */
+export function playPaperSlide(direction: 1 | -1 = 1) {
+  const a = ready()
+  if (!a) return
+  const t = a.currentTime + 0.005
+  lastTurn = a.currentTime
+  const out = direction > 0
+  const dur = out ? 0.5 : 0.42
+
+  if (out) {
+    for (let i = 0; i < 3; i++) {
+      burst(a, t + i * rand(0.015, 0.03), { dur: rand(0.012, 0.025), gain: rand(0.04, 0.08), type: 'bandpass', freq: rand(3500, 6000), q: 2 })
+    }
+  }
+
+  // The slide: friction noise, brightest mid-way, fading as the sheet comes free.
+  const start = t + (out ? 0.05 : 0)
+  const src = a.createBufferSource()
+  src.buffer = noise
+  const f = a.createBiquadFilter()
+  f.type = 'bandpass'
+  f.Q.value = 0.6
+  f.frequency.setValueAtTime(out ? 1400 : 2600, start)
+  f.frequency.exponentialRampToValueAtTime(out ? 3000 : 1300, start + dur)
+  const g = a.createGain()
+  g.gain.setValueAtTime(0.0001, start)
+  g.gain.exponentialRampToValueAtTime(0.07, start + dur * 0.35)
+  g.gain.exponentialRampToValueAtTime(0.0001, start + dur)
+  src.connect(f).connect(g).connect(master!)
+  src.start(start, Math.random() * 1.2, dur + 0.05)
+
+  // Putting it back ends with a soft tap as it settles in the folder.
+  if (!out) {
+    burst(a, start + dur * 0.9, { dur: 0.06, gain: 0.12, type: 'lowpass', freq: 700, attack: 0.002 })
+  }
+}
