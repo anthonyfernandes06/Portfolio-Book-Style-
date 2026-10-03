@@ -1,4 +1,4 @@
-import { Body, CaseStudyLink, Page, ProjectTitle } from '@/components/page/Primitives'
+import { Body, CaseStudyLink, Page, PaperLink, ProjectTitle } from '@/components/page/Primitives'
 import { LINKS } from '@/content/links'
 
 export default function P09ResearchAI() {
@@ -14,8 +14,9 @@ export default function P09ResearchAI() {
           Designing it meant wearing a different hat. I wasn’t only deciding how the experience should feel; I was deciding what to build, what to leave out, and why. That’s where I learned to think like a product manager.
         </p>
       </Body>
-      <div style={{ marginTop: 'auto' }}>
-        <CaseStudyLink href={LINKS.researchAiDemo}>View Product Demo</CaseStudyLink>
+      <div style={{ marginTop: 'auto', display: 'flex', flexWrap: 'wrap', gap: '2.5cqw 7cqw' }}>
+        <CaseStudyLink href={LINKS.researchAiDemo}>View Product</CaseStudyLink>
+        <PaperLink paper="reesearch">Read Case Study</PaperLink>
       </div>
     </Page>
   )

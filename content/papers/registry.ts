@@ -3,12 +3,20 @@
  * write-up behind a playground page; `page` is the printed page that cites it.
  */
 export const PAPERS = {
+  reesearch: {
+    slug: 'reesearch-ai',
+    page: 9,
+    title: 'Reesearch AI: Simplifying Research',
+    short: 'Reesearch AI',
+    /** On the sheet's top edge, peeking out of the folder. */
+    label: 'Reesearch AI',
+    date: 'Ongoing',
+  },
   lumora: {
     slug: 'lumora-ai-financial-advisor',
     page: 15,
     title: 'Lumora: AI Financial Advisor',
     short: 'Lumora',
-    /** On the sheet's top edge, peeking out of the folder. */
     label: 'Lumora',
     date: 'March 2026',
   },

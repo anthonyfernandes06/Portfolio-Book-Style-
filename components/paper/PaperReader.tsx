@@ -3,11 +3,17 @@ import { useEffect, useRef, useState, type ComponentType } from 'react'
 import { closePaper, useBookState } from '@/lib/progress'
 import type { PaperId } from '@/content/papers/registry'
 import LumoraPaper from '@/content/papers/LumoraPaper'
+import ReesearchPaper from '@/content/papers/ReesearchPaper'
 import SpotifyPaper from '@/content/papers/SpotifyPaper'
 import OttPaper from '@/content/papers/OttPaper'
 import r from './reader.module.css'
 
-const CONTENT: Record<PaperId, ComponentType> = { lumora: LumoraPaper, spotify: SpotifyPaper, ott: OttPaper }
+const CONTENT: Record<PaperId, ComponentType> = {
+  reesearch: ReesearchPaper,
+  lumora: LumoraPaper,
+  spotify: SpotifyPaper,
+  ott: OttPaper,
+}
 
 /** Matches the slide-out in reader.module.css. */
 const LEAVE_MS = 460

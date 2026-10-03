@@ -1,8 +1,9 @@
 /*
  * The folder lies at the bottom edge of the desk, mostly off-screen. Only its
- * top shows: two sheets standing a little proud of the front cover.
- * Kept quiet on purpose; it shouldn't pull focus from the book. It sits square to the book (both are turned 2deg) in the
- * strip of desk below it.
+ * top shows: the papers, fanned and overlapping, standing a little proud of
+ * the front cover. It sits square to the book (both are turned 2deg) in the
+ * strip of desk below it, and is kept quiet on purpose: it shouldn't pull
+ * focus from the book.
  */
 .folder {
   /* desk showing below the book, and how much of the folder peeks into it */
@@ -10,7 +11,7 @@
   --peek: clamp(40px, calc(var(--gap) - 16px), 88px);
   /* how far the sheets stand above the front cover */
   --out: calc(var(--peek) * 0.5);
-  --w: min(clamp(420px, 42vw, 580px), 92vw);
+  --w: min(clamp(440px, 42vw, 600px), 92vw);
   --tilt: -2deg;
 
   position: absolute;
@@ -46,6 +47,7 @@
   right: -1%;
   top: var(--out);
   bottom: 0;
+  z-index: 10;
   border-radius: 2px 2px 0 0;
   background-image:
     linear-gradient(180deg, rgba(255, 245, 220, 0.5) 0, rgba(255, 245, 220, 0) 2px),
@@ -67,7 +69,7 @@
   mix-blend-mode: multiply;
 }
 
-/* ---------- The sheets ---------- */
+/* ---------- The sheets: fanned left to right, each overlapping the last ---------- */
 .sheet {
   appearance: none;
   border: 0;
@@ -75,7 +77,7 @@
   position: absolute;
   top: 0;
   height: calc(var(--peek) + 80px);
-  width: 31.5%;
+  width: 36%;
   padding: calc(var(--out) * 0.22) 0.8em 0;
   display: flex;
   flex-direction: column;
@@ -84,37 +86,45 @@
   cursor: pointer;
   color: #1f1e1b;
   background: #fbfaf6;
-  box-shadow: 0 0 0 0.5px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.16);
-  transition: transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  box-shadow:
+    -1px 0 2px rgba(0, 0, 0, 0.1),
+    0 0 0 0.5px rgba(0, 0, 0, 0.12),
+    0 1px 2px rgba(0, 0, 0, 0.16);
+  transform: rotate(var(--r));
+  transition: transform 260ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.sheet[data-paper='reesearch'] {
+  left: 2%;
+  top: 2px;
+  --r: -1.2deg;
 }
 .sheet[data-paper='lumora'] {
-  left: 4%;
-  top: 2px;
-  --r: -1.4deg;
-  transform: rotate(var(--r));
+  left: 22%;
+  --r: 0.6deg;
 }
 .sheet[data-paper='spotify'] {
-  left: 34.5%;
-  --r: 0.6deg;
-  transform: rotate(var(--r));
+  left: 42%;
+  top: 3px;
+  --r: -0.5deg;
 }
 .sheet[data-paper='ott'] {
-  left: 64.5%;
-  top: 3px;
-  --r: 1.3deg;
-  transform: rotate(var(--r));
+  left: 62%;
+  top: 1px;
+  --r: 1.1deg;
 }
-.sheet:hover {
-  transform: translateY(-6px) rotate(var(--r));
+/* Pointed at: it rises a little and comes to the front, so the whole title shows. */
+.sheet:hover,
+.sheet:focus-visible {
+  z-index: 5;
+  transform: translateY(-8px) rotate(var(--r));
 }
 .sheet:focus-visible {
   outline: 2px solid #f6f1e3;
   outline-offset: 2px;
-  transform: translateY(-6px) rotate(var(--r));
 }
-/* The sheet being read has left the folder. */
+/* The paper being read has left the folder. */
 .sheet[data-out='true'] {
-  transform: translateY(calc(var(--out) + 4px)) rotate(var(--r));
+  transform: translateY(calc(var(--out) + 6px)) rotate(var(--r));
   transition-duration: 400ms;
 }
 
@@ -138,24 +148,33 @@
   .folder {
     --gap: calc((100vh - var(--page-h)) / 2 - 10px);
     --peek: clamp(48px, calc(var(--gap) * 0.5), 80px);
-    --w: min(90vw, 420px);
+    --w: min(94vw, 440px);
   }
   .sheet {
-    width: 32%;
+    width: 38%;
     padding: 6px 0.6em 0;
   }
+  .sheet[data-paper='reesearch'] {
+    left: 1%;
+  }
   .sheet[data-paper='lumora'] {
-    left: 2%;
+    left: 21%;
   }
   .sheet[data-paper='spotify'] {
-    left: 34%;
+    left: 41%;
   }
   .sheet[data-paper='ott'] {
-    left: 66%;
+    left: 61%;
   }
+  /* wrap within the strip of each sheet that shows */
   .title {
     font-size: 10.5px;
     white-space: normal;
+    max-width: calc(var(--w) * 0.2 - 1em);
+  }
+  /* nothing lies over the last sheet */
+  .sheet[data-paper='ott'] .title {
+    max-width: none;
   }
 }
 @media (max-width: 767px) and (max-height: 620px) {
