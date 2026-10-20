@@ -10,25 +10,27 @@ import P05 from './pages/P05Hello'
 import P06 from './pages/P06TheClimb'
 import P07 from './pages/P07Staircase'
 import P08 from './pages/P08ChapterThree'
-import P09 from './pages/P09ResearchAI'
+import P09 from './pages/P09Shoonya'
 import P10 from './pages/P10LessonTwo'
-import P11 from './pages/P11Acting'
+import P11 from './pages/P11ResearchAI'
 import P12 from './pages/P12LessonThree'
-import P13 from './pages/P13Gold'
-import P14 from './pages/P14Playground'
-import P15 from './pages/P15Lumora'
-import P16 from './pages/P16Spotify'
-import P17 from './pages/P17OTT'
-import P18 from './pages/P18Toolbox'
-import P19 from './pages/P19Notes'
-import P20 from './pages/P20Books'
-import P21 from './pages/P21BooksContinued'
-import P22 from './pages/P22OffThePage'
-import P23 from './pages/P23OffThePageContinued'
-import P24 from './pages/P24KeepsMeUp'
-import P25 from './pages/P25Continued'
-import P26 from './pages/P26Epilogue'
-import P27 from './pages/P27ToBeContinued'
+import P13 from './pages/P13Acting'
+import P14 from './pages/P14LessonFour'
+import P15 from './pages/P15Gold'
+import P16 from './pages/P16Playground'
+import P17 from './pages/P17Lumora'
+import P18 from './pages/P18Spotify'
+import P19 from './pages/P19OTT'
+import P20 from './pages/P20Toolbox'
+import P21 from './pages/P21Notes'
+import P22 from './pages/P22Books'
+import P23 from './pages/P23BooksContinued'
+import P24 from './pages/P24OffThePage'
+import P25 from './pages/P25OffThePageContinued'
+import P26 from './pages/P26KeepsMeUp'
+import P27 from './pages/P27Continued'
+import P28 from './pages/P28Epilogue'
+import P29 from './pages/P29ToBeContinued'
 import BackCover from './pages/BackCover'
 
 export type LeafDef = {
@@ -49,7 +51,7 @@ const paper = (front: ComponentType, back: ComponentType): LeafDef => ({
 
 /**
  * The book, leaf by leaf. Spread n shows leaf[n-1].back (left) and leaf[n].front (right).
- * Leaf 0 and Leaf 14 are boards.
+ * Leaf 0 and Leaf 15 are boards.
  */
 export const LEAVES: LeafDef[] = [
   { front: Cover, back: InsideFront, kind: 'board', frontMaterial: 'board', backMaterial: 'endpaper' },
@@ -66,14 +68,15 @@ export const LEAVES: LeafDef[] = [
   paper(P21, P22),
   paper(P23, P24),
   paper(P25, P26),
-  { front: P27, back: BackCover, kind: 'board', frontMaterial: 'paper', backMaterial: 'board' },
+  paper(P27, P28),
+  { front: P29, back: BackCover, kind: 'board', frontMaterial: 'paper', backMaterial: 'board' },
 ]
 
 /** Single-page (mobile) reading order: every face in sequence. */
 export const FACES: { Content: ComponentType; material: Material }[] = [
   { Content: Cover, material: 'board' },
   { Content: InsideFront, material: 'endpaper' },
-  ...[P01, P02, P03, P04, P05, P06, P07, P08, P09, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23, P24, P25, P26, P27].map(
+  ...[P01, P02, P03, P04, P05, P06, P07, P08, P09, P10, P11, P12, P13, P14, P15, P16, P17, P18, P19, P20, P21, P22, P23, P24, P25, P26, P27, P28, P29].map(
     (Content) => ({ Content, material: 'paper' as Material }),
   ),
   { Content: BackCover, material: 'board' },

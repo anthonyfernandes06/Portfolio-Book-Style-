@@ -1,9 +1,8 @@
-import { Body, CaseStudyLink, Figure, Page, ProjectTitle } from '@/components/page/Primitives'
-import { LINKS } from '@/content/links'
+import { Body, Figure, Page, ProjectTitle } from '@/components/page/Primitives'
 
-export default function P13Gold() {
+export default function P15Gold() {
   return (
-    <Page side="right" number={13} runningHead="Some of my work">
+    <Page side="right" number={15} runningHead="Some of my work">
       <ProjectTitle title="Helping agents sell gold, better" tags="Web app, Fin-tech" style={{ marginBottom: '3.8cqw' }} />
       <Body>
         <p>
@@ -18,15 +17,12 @@ export default function P13Gold() {
       </Body>
       <Figure
         img="goldWorkshop"
-        width={32}
+        width={40}
         rotate={-1.2}
         tapes={[{ corner: 'tl', variant: 2 }, { corner: 'tr', variant: 1 }]}
-        caption={<span style={{ whiteSpace: 'nowrap' }}>Fig. 06. Workshop with the Augmont team</span>}
+        caption={<span style={{ whiteSpace: 'nowrap' }}>Fig. 07. Workshop with the Augmont team</span>}
         style={{ marginTop: '4cqw', alignSelf: 'center' }}
       />
-      <div style={{ marginTop: 'auto' }}>
-        <CaseStudyLink href={LINKS.goldCaseStudy}>Read the full case study on the YellowSlice Website</CaseStudyLink>
-      </div>
     </Page>
   )
 }

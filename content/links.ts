@@ -10,12 +10,14 @@ export const LINKS = {
   linkedin: 'https://www.linkedin.com/in/anthony-fernandes-64aa71194',
   resume: 'https://drive.google.com/drive/folders/1-845h1ycQmQdXi6JJGQmXdNY9mFwSMRv' as string | null,
 
+  shoonyaPlayStore: 'https://play.google.com/store/apps/details?id=com.shoonya.s2&hl=en_IN' as string | null,
+  shoonyaAppStore: 'https://apps.apple.com/in/app/shoonya-pro-options-stocks/id6745090366' as string | null,
   researchAiDemo: 'https://reesearch.ai/' as string | null,
-  actingCaseStudy: 'https://www.yellowslice.in/project/the-actors-truth' as string | null,
-  goldCaseStudy: 'https://www.yellowslice.in/project/augmont' as string | null,
+  actingPlayStore: 'https://play.google.com/store/apps/details?id=com.theactorstruth.app' as string | null,
+  actingAppStore: 'https://apps.apple.com/in/app/actors-truth/id6743799347' as string | null,
   lumoraDemo: 'https://smart-floss-47697979.figma.site/' as string | null,
 
-  /** LinkedIn essays, in the order they appear on p.19. */
+  /** LinkedIn essays, in the order they appear on p.21. */
   essays: [
     {
       title: 'How to choose the right gamification mechanisms',

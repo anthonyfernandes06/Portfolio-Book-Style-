@@ -29,7 +29,7 @@ function turnOrFollow(e: MouseEvent<HTMLButtonElement>, turn: () => void) {
 /**
  * Single-page mode (< 768px): a top-bound desk calendar. One face at a time;
  * each page lifts from its bottom edge, swings up over the spiral and drops
- * away behind it. Same progress engine as desktop, 29 turns instead of 15.
+ * away behind it. Same progress engine as desktop, 31 turns instead of 16.
  */
 export default function MobileBook() {
   const st = useBookState()

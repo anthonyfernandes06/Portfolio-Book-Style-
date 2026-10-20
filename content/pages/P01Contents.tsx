@@ -8,13 +8,13 @@ const ROWS: { numeral?: string; title: string; page: number }[] = [
   { numeral: 'I.', title: 'Hello, I’m Anthony', page: 4 },
   { numeral: 'II.', title: 'The journey so far', page: 6 },
   { numeral: 'III.', title: 'Some of my work', page: 8 },
-  { numeral: 'IV.', title: 'The playground', page: 14 },
-  { numeral: 'V.', title: 'The toolbox', page: 18 },
-  { numeral: 'VI.', title: 'Notes in the margins', page: 19 },
-  { numeral: 'VII.', title: 'The books inside this book', page: 20 },
-  { numeral: 'VIII.', title: 'Off the record', page: 22 },
-  { numeral: 'IX.', title: 'What keeps me up at night', page: 24 },
-  { title: 'Epilogue: To be continued', page: 26 },
+  { numeral: 'IV.', title: 'The playground', page: 16 },
+  { numeral: 'V.', title: 'The toolbox', page: 20 },
+  { numeral: 'VI.', title: 'Notes in the margins', page: 21 },
+  { numeral: 'VII.', title: 'The books inside this book', page: 22 },
+  { numeral: 'VIII.', title: 'Off the record', page: 24 },
+  { numeral: 'IX.', title: 'What keeps me up at night', page: 26 },
+  { title: 'Epilogue: To be continued', page: 28 },
 ]
 
 export default function P01Contents() {

@@ -5,7 +5,7 @@
 export const PAPERS = {
   reesearch: {
     slug: 'reesearch-ai',
-    page: 9,
+    page: 11,
     title: 'Reesearch AI: Simplifying Research',
     short: 'Reesearch AI',
     /** On the sheet's top edge, peeking out of the folder. */
@@ -14,7 +14,7 @@ export const PAPERS = {
   },
   lumora: {
     slug: 'lumora-ai-financial-advisor',
-    page: 15,
+    page: 17,
     title: 'Lumora: AI Financial Advisor',
     short: 'Lumora',
     label: 'Lumora',
@@ -22,7 +22,7 @@ export const PAPERS = {
   },
   spotify: {
     slug: 'spotify-dj-mode',
-    page: 16,
+    page: 18,
     title: 'Spotify DJ Mode: Making Music Fun',
     short: 'Spotify DJ Mode',
     label: 'Spotify DJ Mode',
@@ -30,7 +30,7 @@ export const PAPERS = {
   },
   ott: {
     slug: 'ott-account-sharing',
-    page: 17,
+    page: 19,
     title: 'Netflix (OTT): Solving for Account Sharing',
     short: 'Solving for account sharing',
     label: 'OTT account sharing',

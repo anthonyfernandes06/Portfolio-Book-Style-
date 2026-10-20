@@ -1,9 +1,9 @@
 import { ChapterOpener, Figure, Page } from '@/components/page/Primitives'
 import s from './pages.module.css'
 
-export default function P22OffThePage() {
+export default function P24OffThePage() {
   return (
-    <Page side="left" number={22}>
+    <Page side="left" number={24}>
       <ChapterOpener label="Chapter eight" title="Off the record" style={{ marginBottom: '3cqw' }} />
       <p style={{ fontSize: '2.45cqw', lineHeight: 1.5 }}>
         Here’s what I’m doing when I’m not designing. (Trust me, I’m designing quite often, though.)

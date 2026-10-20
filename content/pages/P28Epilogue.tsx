@@ -1,9 +1,9 @@
 import { Page, Typed } from '@/components/page/Primitives'
 import s from './pages.module.css'
 
-export default function P26Epilogue() {
+export default function P28Epilogue() {
   return (
-    <Page side="left" number={26}>
+    <Page side="left" number={28}>
       <h2 style={{ fontWeight: 400 }}>
         <Typed>Epilogue</Typed>
       </h2>

@@ -2,7 +2,7 @@ import type { ImageKey } from './images'
 
 export type Book = { img: ImageKey; title: string; author: string; note: string; rotate: number }
 
-/** The five books, in reading order across p.20–21. */
+/** The five books, in reading order across p.22–23. */
 export const BOOKS: Book[] = [
   {
     img: 'book1',

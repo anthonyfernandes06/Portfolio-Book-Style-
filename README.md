@@ -27,7 +27,7 @@ Deploy to Vercel as-is (static export). Set `NEXT_PUBLIC_SITE_URL` to the live o
 
 ## Still to fill in
 
-- `[EDIT]` / `[CONFIRM]` comments in `content/pages/`: cover city (`Mumbai, 2026`), letter date, p.7 note and index card, p.16/p.17 extra sentences, p.23 margin note, and the toolbox list on p.18.
+- `[EDIT]` / `[CONFIRM]` comments in `content/pages/`: cover city (`Mumbai, 2026`), letter date, p.7 note and index card, p.18/p.19 extra sentences, p.25 margin note, and the toolbox list on p.20.
 - Back cover testimonial: omitted until a real one is supplied.
 
 Images were extracted from the current portfolio PDF. Swap in higher-resolution originals at the same filenames when available.

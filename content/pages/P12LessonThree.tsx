@@ -3,37 +3,30 @@ import { Figure, LessonHeadline, Page, Typed } from '@/components/page/Primitive
 export default function P12LessonThree() {
   return (
     <Page side="left" number={12} runningHead="Anthony Fernandes">
-      <Typed style={{ marginBottom: '1.6cqw', marginTop: '3cqw' }}>Lesson three</Typed>
-      <LessonHeadline>The product that taught me not to execute every idea at once.</LessonHeadline>
-      {/* The overview print, with two close-up screens taped below it */}
-      <div style={{ position: 'relative', height: '64cqw', marginTop: '8cqw' }}>
+      <LessonHeadline style={{ marginTop: '3cqw' }}>The product that taught me how to build an MVP.</LessonHeadline>
+      {/* The hero shot, with two phone screens taped over its lower edge */}
+      <div style={{ position: 'relative', height: '63cqw', marginTop: '7cqw' }}>
+        <Figure img="acting1" width={62} kind="screen" rotate={-0.6} style={{ position: 'absolute', left: 0, top: 0 }} />
         <Figure
-          img="gold"
-          width={70}
+          img="acting2"
+          width={19}
           kind="screen"
-          tapes={[{ corner: 'tl', variant: 1 }, { corner: 'tr', variant: 2 }]}
-          rotate={0.5}
-          style={{ position: 'absolute', left: 0, top: 0 }}
-        />
-        <Figure
-          img="goldClient"
-          width={32}
-          kind="screen"
-          rotate={-2}
+          rotate={-3}
           tapes={[{ corner: 'top', variant: 0 }]}
-          style={{ position: 'absolute', left: '4cqw', top: '27cqw' }}
+          style={{ position: 'absolute', left: '30cqw', top: '27cqw' }}
         />
         <Figure
-          img="goldDashboard"
-          width={28}
+          img="acting3"
+          width={19}
           kind="screen"
-          rotate={2.5}
+          rotate={3}
           tapes={[{ corner: 'top', variant: 2 }]}
-          style={{ position: 'absolute', left: '41cqw', top: '24cqw' }}
+          style={{ position: 'absolute', left: '53cqw', top: '21cqw' }}
         />
       </div>
-      <Typed as="p" style={{ fontSize: '1.55cqw', marginTop: '2cqw' }}>
-        Fig. 05. Agent sales platform
+      {/* [EDIT] */}
+      <Typed style={{ marginTop: '3cqw', fontSize: '1.55cqw' }} as="p">
+        Fig. 04. Learning acting, mobile app
       </Typed>
     </Page>
   )

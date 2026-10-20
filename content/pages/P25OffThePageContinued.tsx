@@ -1,9 +1,9 @@
 import { Figure, MarginNote, Page } from '@/components/page/Primitives'
 import s from './pages.module.css'
 
-export default function P23OffThePageContinued() {
+export default function P25OffThePageContinued() {
   return (
-    <Page side="right" number={23} runningHead="Off the record">
+    <Page side="right" number={25} runningHead="Off the record">
       <div className={s.hobbyRow} style={{ marginTop: '2cqw' }}>
         <Figure img="standup" width={18} kind="bw" rotate={1.5} ratio={0.8} position="50% 35%" tapes={[{ corner: 'top', variant: 1 }]} />
         <p className={s.hobby}>

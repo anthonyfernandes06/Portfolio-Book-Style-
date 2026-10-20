@@ -482,3 +482,26 @@
     animation: none !important;
   }
 }
+
+/* ---------- Impact figures on an index card ---------- */
+.impact {
+  display: flex;
+  justify-content: space-between;
+  gap: 4cqw;
+  margin: 0;
+}
+.impact > div {
+  display: flex;
+  flex-direction: column-reverse;
+}
+.impact dd {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: 3.4cqw;
+  line-height: 7.2cqw;
+  white-space: nowrap;
+}
+.impact dt {
+  font-size: 1.6cqw;
+  line-height: 3.6cqw;
+}

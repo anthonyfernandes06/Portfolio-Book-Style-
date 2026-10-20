@@ -1,8 +1,8 @@
 import { Body, ChapterOpener, Figure, MarginNote, Page, Typed } from '@/components/page/Primitives'
 
-export default function P14Playground() {
+export default function P16Playground() {
   return (
-    <Page side="left" number={14}>
+    <Page side="left" number={16}>
       <ChapterOpener label="Chapter four" title="The playground" style={{ marginBottom: '3.5cqw' }} />
       <Body small>
         <p>
@@ -37,7 +37,7 @@ export default function P14Playground() {
         />
       </div>
       <Typed style={{ fontSize: '1.55cqw' }} as="p">
-        Fig. 07. Lumora, concept
+        Fig. 08. Lumora, concept
       </Typed>
       <MarginNote rotate={-3} style={{ marginTop: 'auto', marginLeft: '8cqw', maxWidth: '44cqw' }}>
         P.S. In my free time, I give people unsolicited financial advice.

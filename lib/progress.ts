@@ -28,23 +28,23 @@ type Config = {
 }
 
 export const CONFIGS: Record<Mode, Config> = {
-  // 15 leaves → spreads 0 (closed, cover) … 15 (closed, back cover)
+  // 16 leaves → spreads 0 (closed, cover) … 16 (closed, back cover)
   spread: {
-    steps: 15,
+    steps: 16,
     heroDwell: 0.4,
     turn: 1,
     endDwell: 0.6,
     pageToSpread: (p) => (p <= 0 ? 0 : Math.floor(p / 2) + 1),
-    spreadToHash: (s) => (s <= 0 ? '' : s >= 15 ? '#back-cover' : s === 1 ? '#p-1' : `#p-${2 * s - 2}`),
+    spreadToHash: (s) => (s <= 0 ? '' : s >= 16 ? '#back-cover' : s === 1 ? '#p-1' : `#p-${2 * s - 2}`),
   },
-  // One face per step: cover, inside cover, p.1 … p.27, back cover
+  // One face per step: cover, inside cover, p.1 … p.29, back cover
   single: {
-    steps: 29,
+    steps: 31,
     heroDwell: 0.4,
     turn: 0.8,
     endDwell: 0.6,
     pageToSpread: (p) => (p <= 0 ? 0 : p + 1),
-    spreadToHash: (s) => (s <= 0 ? '' : s >= 29 ? '#back-cover' : s === 1 ? '#inside-cover' : `#p-${s - 1}`),
+    spreadToHash: (s) => (s <= 0 ? '' : s >= 31 ? '#back-cover' : s === 1 ? '#inside-cover' : `#p-${s - 1}`),
   },
 }
 

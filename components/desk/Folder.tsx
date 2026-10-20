@@ -6,7 +6,7 @@ import f from './folder.module.css'
 
 /** The folder stays out from the Projects chapter to the end of the playground. */
 const FIRST_PAGE = 8
-const LAST_PAGE = 17
+const LAST_PAGE = 19
 
 /**
  * A manila folder at the bottom edge of the desk, holding the full papers

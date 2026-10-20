@@ -1,9 +1,9 @@
 import { Body, CaseStudyLink, CrossRef, Page, PaperLink, ProjectTitle } from '@/components/page/Primitives'
 import { LINKS } from '@/content/links'
 
-export default function P15Lumora() {
+export default function P17Lumora() {
   return (
-    <Page side="right" number={15} runningHead="The playground">
+    <Page side="right" number={17} runningHead="The playground">
       <ProjectTitle title="Lumora, an AI financial advisor" tags="Concept, AI, Fin-tech" style={{ marginBottom: '4.5cqw' }} />
       <Body>
         <p>
@@ -19,7 +19,7 @@ export default function P15Lumora() {
         <PaperLink paper="lumora">Read More</PaperLink>
       </div>
       <div style={{ marginTop: 'auto' }}>
-        <CrossRef toPage={24}>more on why money matters to me, p.</CrossRef>
+        <CrossRef toPage={26}>more on why money matters to me, p.</CrossRef>
       </div>
     </Page>
   )

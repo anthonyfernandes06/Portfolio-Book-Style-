@@ -293,6 +293,33 @@ export function IndexCard({ children, rotate = -1.5, style }: { children: ReactN
   )
 }
 
+/** Results from a project, typed onto a taped index card: a heading, then each figure over its label. */
+export function ImpactCard({
+  title,
+  items,
+  rotate = 1.2,
+  style,
+}: {
+  title: string
+  items: { value: string; label: string }[]
+  rotate?: number
+  style?: CSSProperties
+}) {
+  return (
+    <IndexCard rotate={rotate} style={style}>
+      {title}
+      <dl className={s.impact}>
+        {items.map((m) => (
+          <div key={m.label}>
+            <dt>{m.label}</dt>
+            <dd>{m.value}</dd>
+          </div>
+        ))}
+      </dl>
+    </IndexCard>
+  )
+}
+
 export function Letter({ children }: { children: ReactNode }) {
   return (
     <div className={s.letter}>

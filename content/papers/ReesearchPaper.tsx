@@ -29,6 +29,15 @@ export default function ReesearchPaper() {
             business, and marketing teams from conducting research unless it is absolutely necessary, leading to missed opportunities for
             informed decision-making.
           </p>
+          <Table
+            n={1}
+            caption="The impact of the product."
+            head={['Measure', 'Change']}
+            rows={[
+              ['Survey analysis time', '−30%'],
+              ['Time to roll out a survey', '−50%'],
+            ]}
+          />
         </>,
         <>
           <H2 n="2">My role</H2>
@@ -166,7 +175,7 @@ export default function ReesearchPaper() {
         <>
           <H2 n="5">Revenue generation models</H2>
           <Table
-            n={1}
+            n={2}
             caption="How Reesearch AI makes money."
             head={['Model', 'How it works']}
             rows={[

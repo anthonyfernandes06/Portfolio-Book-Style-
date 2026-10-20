@@ -1,8 +1,8 @@
 import { Body, PaperLink, Figure, LessonHeadline, Page, Typed } from '@/components/page/Primitives'
 
-export default function P16Spotify() {
+export default function P18Spotify() {
   return (
-    <Page side="left" number={16} runningHead="Anthony Fernandes">
+    <Page side="left" number={18} runningHead="Anthony Fernandes">
       <Typed style={{ marginBottom: '1.6cqw', marginTop: '3cqw' }}>Playground</Typed>
       <LessonHeadline style={{ marginBottom: '3.5cqw' }}>
         <span style={{ fontSize: '1.2em' }}>What if Spotify had a DJ mode?</span>

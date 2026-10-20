@@ -5,6 +5,8 @@ export const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH || ''
 export const IMAGES = {
   coverPortrait: { src: BASE_PATH + '/images/cover-portrait.jpg', w: 899, h: 900, alt: 'Portrait of Anthony Fernandes, smiling with arms crossed in the studio' },
   portrait: { src: BASE_PATH + '/images/portrait.jpg', w: 940, h: 941, alt: 'Anthony Fernandes striking a deliberately visionary pose' },
+  shoonyaPhones: { src: BASE_PATH + '/images/shoonya-phones.jpg', w: 1400, h: 634, alt: 'Three Shoonya app screens: a step-up SIP planner, a watchlist with swipe to buy or sell, and the stocks home screen' },
+  shoonyaScreens: { src: BASE_PATH + '/images/shoonya-screens.jpg', w: 1400, h: 810, alt: 'A collage of Shoonya screens: order details, a stock page with market depth, a SIP order timeline and redeeming a mutual fund' },
   researchAi: { src: BASE_PATH + '/images/research-ai.jpg', w: 1400, h: 633, alt: 'Research AI survey builder interface' },
   researchAiLogic: { src: BASE_PATH + '/images/research-ai-logic.jpg', w: 1400, h: 809, alt: 'Research AI survey question editor and branching survey logic' },
   researchAiInsights: { src: BASE_PATH + '/images/research-ai-insights.jpg', w: 1400, h: 809, alt: 'Research AI insights with AI-generated suggestions from survey responses' },

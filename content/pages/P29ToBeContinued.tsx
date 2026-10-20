@@ -3,9 +3,9 @@ import { Strike } from '@/components/svg/Strokes'
 import { EMAIL, LINKS, MAILTO } from '@/content/links'
 import s from './pages.module.css'
 
-export default function P27ToBeContinued() {
+export default function P29ToBeContinued() {
   return (
-    <Page side="right" number={27} runningHead="To be continued">
+    <Page side="right" number={29} runningHead="To be continued">
       <h2 className="visually-hidden">To be continued</h2>
       <Body style={{ marginTop: '2cqw' }}>
         <p>These are just a few chapters of my life. The rest are still being written, and I’d love for you to be part of the next one.</p>
